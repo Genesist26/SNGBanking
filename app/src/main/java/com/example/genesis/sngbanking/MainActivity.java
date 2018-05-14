@@ -5,10 +5,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button button;
+    private Button button, button2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,9 +23,24 @@ public class MainActivity extends AppCompatActivity {
                 openMenuActivity();
             }
         });
+
+        button2 = (Button) findViewById(R.id.button_signup);
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openSignupActivity();
+            }
+        });
     }
     public void openMenuActivity(){
         Intent intent = new Intent(this, ManuActivity.class);
         startActivity(intent);
     }
+
+    public void openSignupActivity(){
+        Intent intent = new Intent(this, RegisterActivity.class);
+        startActivity(intent);
+    }
+
 }
+

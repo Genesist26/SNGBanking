@@ -1,7 +1,7 @@
 <resources>
     <!--main-->
     <string name="app_name">SNGBanking</string>
-    <string name="username">Username</string>
+    <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="botton_login">LOGIN</string>
     <string name="signup">No Account? Sign up</string>

@@ -3,6 +3,7 @@ package com.example.genesis.sngbanking;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+
 public class WithdrawActivity extends AppCompatActivity {
 
     @Override
@@ -10,4 +11,5 @@ public class WithdrawActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_withdraw);
     }
+
 }

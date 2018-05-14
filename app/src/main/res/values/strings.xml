@@ -11,10 +11,17 @@
     <string name="botton_withdraw">Withdraw</string>
     <string name="botton_balance">Balance</string>
     <string name="botton_logout">LOGOUT</string>
-    <string name="account_name">nalina</string>
+    <string name="firstname">nalina</string>
+    <string name="lastname">withee</string>
     <string name="account_number">123-456789</string>
     <string name="balance">1000.00</string>
     <string name="history">History</string>
+    <string-array name="month">
+        <item>Jan</item>
+        <item>Feb</item>
+        <item>Mar</item>
+        <item>Apr</item>
+    </string-array>
 
 
     <!-- Strings related to login -->

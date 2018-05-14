@@ -80,8 +80,8 @@ public class ManuActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_withdraw) {
-            // Handle the camera action
+        if (id == R.id.nav_transfer) {
+            // Handle the transfer action
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {

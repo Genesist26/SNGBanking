@@ -1,6 +1,8 @@
 package com.example.genesis.sngbanking;
 
-public class BankAccount {
+import java.io.Serializable;
+
+public class BankAccount implements Serializable{
 
     private String fName;
     private String lName;
@@ -53,6 +55,10 @@ public class BankAccount {
         return balance;
     }
 
+    public static int getLastAccountNumber() {
+        return lastAccountNumber;
+    }
+
     public boolean transfer(BankAccount a, BankAccount b, double amount)
     {
         if(a.getBalance() < amount)
@@ -64,6 +70,23 @@ public class BankAccount {
         b.deposit(amount);
 
         return true;
+    }
+
+    public String getEmail(){
+        return email;
+    }
+
+    public String getPassword(){
+        return password;
+
+    }
+
+    public String getFullName() {
+        return fName + lName;
+    }
+
+    public int getAccoutNumber() {
+        return accountNumber;
     }
 
 }

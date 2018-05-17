@@ -28,7 +28,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void onClickSubmit(View v) {
-        BankAccount aAcc;
+        BankAccount anAcc;
 
         String fname = etFirstname.getText().toString();
         String lname = etSurname.getText().toString();
@@ -38,7 +38,8 @@ public class RegisterActivity extends AppCompatActivity {
         String passConf = etPassCon.getText().toString();
 
         if(pass.equals(passConf)) {
-            aAcc = new BankAccount(fname, lname, accNum, email, pass, 0);
+            anAcc = new BankAccount(fname, lname, accNum, email, pass, 1000);
+
             Toast errorToast = Toast.makeText(this, "Your account was created", Toast.LENGTH_SHORT);
             errorToast.show();
             finish();

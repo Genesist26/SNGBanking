@@ -11,14 +11,22 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 public class MenuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private TextView tvCustName;
+    private TextView tvCustAccNum;
+    private TextView tvCustBalance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+
+        BankAccount loginAcc = (BankAccount) getIntent().getSerializableExtra("loginAcc");
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -37,6 +45,15 @@ public class MenuActivity extends AppCompatActivity
                 android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.month));
         myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mySpinner.setAdapter(myAdapter);
+
+        tvCustName = (TextView) findViewById(R.id.tvCustName);
+        tvCustAccNum = (TextView) findViewById(R.id.tvCustAccNum);
+        tvCustBalance = (TextView) findViewById(R.id.tvCustBalance);
+
+        tvCustName.setText(loginAcc.getFullName());
+        tvCustAccNum.setText(Integer.toString(loginAcc.getAccoutNumber()));
+        tvCustBalance.setText(Double.toString(loginAcc.getBalance()));
+
     }
 
     @Override

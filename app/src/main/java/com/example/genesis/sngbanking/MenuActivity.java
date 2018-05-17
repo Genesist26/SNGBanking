@@ -96,9 +96,9 @@ public class MenuActivity extends AppCompatActivity
 
         if (id == R.id.nav_transfer) {
             // Handle the transfer action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_deposit) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_withdraw) {
 
         }
 

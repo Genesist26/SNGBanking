@@ -1,5 +1,6 @@
 package com.example.genesis.sngbanking;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -92,14 +93,20 @@ public class MenuActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
+        Intent intent;
         int id = item.getItemId();
 
         if (id == R.id.nav_transfer) {
-            // Handle the transfer action
+            intent = new Intent(this, TransferActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_deposit) {
-
+            intent = new Intent(this, DepositActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_withdraw) {
-
+            intent = new Intent(this, WithdrawActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_logout) {
+            finish();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

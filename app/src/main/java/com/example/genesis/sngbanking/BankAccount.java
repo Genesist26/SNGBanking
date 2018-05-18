@@ -85,8 +85,15 @@ public class BankAccount implements Serializable{
         return fName + lName;
     }
 
-    public int getAccoutNumber() {
-        return accountNumber;
+    public String getAccoutNumber() {
+        return Integer.toString(accountNumber);
     }
 
+    public String getfName() {
+        return fName;
+    }
+
+    public String getlname() {
+        return lName;
+    }
 }

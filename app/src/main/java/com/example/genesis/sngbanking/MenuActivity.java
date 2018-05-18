@@ -20,13 +20,13 @@ public class MenuActivity extends AppCompatActivity
     private TextView tvCustName;
     private TextView tvCustAccNum;
     private TextView tvCustBalance;
-
+    private BankAccount loginAcc;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
-        BankAccount loginAcc = (BankAccount) getIntent().getSerializableExtra("loginAcc");
+        loginAcc = (BankAccount) getIntent().getSerializableExtra("loginAcc");
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -52,7 +52,7 @@ public class MenuActivity extends AppCompatActivity
         tvCustBalance = (TextView) findViewById(R.id.tvCustBalance);
 
         tvCustName.setText(loginAcc.getFullName());
-        tvCustAccNum.setText(Integer.toString(loginAcc.getAccoutNumber()));
+        tvCustAccNum.setText(loginAcc.getAccoutNumber());
         tvCustBalance.setText(Double.toString(loginAcc.getBalance()));
 
     }
@@ -100,7 +100,9 @@ public class MenuActivity extends AppCompatActivity
             intent = new Intent(this, TransferActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_deposit) {
+            finish();
             intent = new Intent(this, DepositActivity.class);
+            intent.putExtra("loginAcc",loginAcc);
             startActivity(intent);
         } else if (id == R.id.nav_withdraw) {
             intent = new Intent(this, WithdrawActivity.class);

@@ -96,7 +96,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <TextView
-        android:id="@+id/textView10"
+        android:id="@+id/tvfname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -118,7 +118,7 @@
         android:text="@string/lastname"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/textView10"
+        app:layout_constraintStart_toEndOf="@+id/tvfname"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <TextView

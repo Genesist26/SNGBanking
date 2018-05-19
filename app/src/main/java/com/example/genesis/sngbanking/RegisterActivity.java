@@ -11,7 +11,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private Button btSubmit;
     private EditText etFirstname, etSurname, etAccnumbe, etEmail, etPass, etPassCon;
-
+    private Database.MyDbHelper mHelper = new Database.MyDbHelper(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +39,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         if(pass.equals(passConf)) {
             anAcc = new BankAccount(fname, lname, accNum, email, pass, 1000);
+            mHelper.addAcc(anAcc);
 
             Toast errorToast = Toast.makeText(this, "Your account was created", Toast.LENGTH_SHORT);
             errorToast.show();

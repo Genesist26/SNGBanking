@@ -82,5 +82,14 @@ public class Database {
 
             sqLiteDatabase.close();
         }
+
+        public void deleteAvv(String accNO) {
+
+            sqLiteDatabase = this.getWritableDatabase();
+
+            sqLiteDatabase.delete(TABLE_NAME, COL_ACCNUMBER + " = " + accNO, null);
+
+            sqLiteDatabase.close();
+        }
     }
 }

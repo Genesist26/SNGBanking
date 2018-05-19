@@ -12,6 +12,7 @@ public class DepositActivity extends AppCompatActivity {
     private EditText etAmount;
     private TextView tvfname, tvlname, tvAccNumber;
     BankAccount loginAcc;
+    private Database.MyDbHelper mHelper = new Database.MyDbHelper(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +27,7 @@ public class DepositActivity extends AppCompatActivity {
         etAmount = (EditText) findViewById(R.id.etAmount);
 
         tvfname.setText(loginAcc.getfName());
-        tvlname.setText(loginAcc.getlname());
+        tvlname.setText(loginAcc.getlName());
         tvAccNumber.setText(loginAcc.getAccoutNumber());
 
 
@@ -35,6 +36,7 @@ public class DepositActivity extends AppCompatActivity {
     public void onClickSubmit(View v) {
         double amount = Double.parseDouble(etAmount.getText().toString());
         loginAcc.deposit(amount);
+        mHelper.addAcc(loginAcc);
         finish();
         Intent intent = new Intent(this, MenuActivity.class);
         intent.putExtra("loginAcc",loginAcc);

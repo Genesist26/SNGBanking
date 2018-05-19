@@ -27,18 +27,18 @@ public class Database {
 
         public void onCreate(SQLiteDatabase db) { ;
             db.execSQL("CREATE TABLE " + TABLE_NAME +" ( _id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                    + COL_ACCNUMBER + " INTEGER, " + COL_EMAIL + " TEXT, "
+                    + COL_ACCNUMBER + " TEXT, " + COL_EMAIL + " TEXT, "
                     + COL_PIN + " TEXT, " + COL_FIRSTNAME + " TEXT, "
                     + COL_SURENAME + " TEXT, " + COL_BALANCE + " REAL);");
 
             db.execSQL("INSERT INTO " + TABLE_NAME + " (" + COL_ACCNUMBER + ", " + COL_EMAIL + ", " + COL_PIN
-                    + ", " + COL_FIRSTNAME + ", " + COL_SURENAME + ", " + COL_BALANCE + ") VALUES (1, 'sunsun@gmail.com', " +
+                    + ", " + COL_FIRSTNAME + ", " + COL_SURENAME + ", " + COL_BALANCE + ") VALUES ('1', 'sunsun@gmail.com', " +
                     "'1234', 'Chantapat', 'Sopontanasiri', 3000);");
             db.execSQL("INSERT INTO " + TABLE_NAME + " ("  + COL_ACCNUMBER + ", " + COL_EMAIL + ", " + COL_PIN
-                    + ", " + COL_FIRSTNAME + ", " + COL_SURENAME + ", " + COL_BALANCE + ") VALUES (2, 'gene@gmail.com', " +
+                    + ", " + COL_FIRSTNAME + ", " + COL_SURENAME + ", " + COL_BALANCE + ") VALUES ('2', 'gene@gmail.com', " +
                     "'1234', 'Gene', 'Somsak', 3000);");
             db.execSQL("INSERT INTO " + TABLE_NAME + " (" + COL_ACCNUMBER + ", "  + COL_EMAIL + ", " + COL_PIN
-                    + ", " + COL_FIRSTNAME + ", " + COL_SURENAME + ", " + COL_BALANCE + ") VALUES (3, 'nalina@gmail.com', " +
+                    + ", " + COL_FIRSTNAME + ", " + COL_SURENAME + ", " + COL_BALANCE + ") VALUES ('3', 'nalina@gmail.com', " +
                     "'1234', 'nalina', 'vitee', 5000);");
         }
 

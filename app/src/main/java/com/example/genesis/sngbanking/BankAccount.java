@@ -2,7 +2,7 @@ package com.example.genesis.sngbanking;
 
 import java.io.Serializable;
 
-public class BankAccount implements Serializable{
+public class BankAccount implements Serializable {
 
     private String fName;
     private String lName;
@@ -14,8 +14,7 @@ public class BankAccount implements Serializable{
     private static int lastAccountNumber = 0;
 
     public BankAccount(String fName, String lName, int accountNumber,
-                       String email, String password, double intialBalance)
-    {
+                       String email, String password, double intialBalance) {
         this.fName = fName;
         this.lName = lName;
         this.accountNumber = accountNumber;
@@ -29,14 +28,12 @@ public class BankAccount implements Serializable{
     }
 
 
-    public void deposit(double depositAmount)
-    {
+    public void deposit(double depositAmount) {
         balance += depositAmount;
     }
 
-    public boolean withdraw(double withdrawAmount)
-    {
-        if (withdrawAmount > balance){
+    public boolean withdraw(double withdrawAmount) {
+        if (withdrawAmount > balance) {
             System.out.println("Insufficient Funds!!!");
             return false;
         } else {
@@ -45,13 +42,11 @@ public class BankAccount implements Serializable{
         }
     }
 
-    public int getNumber()
-    {
+    public int getNumber() {
         return accountNumber;
     }
 
-    public double getBalance()
-    {
+    public double getBalance() {
         return balance;
     }
 
@@ -59,9 +54,8 @@ public class BankAccount implements Serializable{
         return lastAccountNumber;
     }
 
-    public boolean transfer(BankAccount a, BankAccount b, double amount)
-    {
-        if(a.getBalance() < amount)
+    public boolean transfer(BankAccount a, BankAccount b, double amount) {
+        if (a.getBalance() < amount)
             return false;
 
         // check b is exists
@@ -72,17 +66,17 @@ public class BankAccount implements Serializable{
         return true;
     }
 
-    public String getEmail(){
+    public String getEmail() {
         return email;
     }
 
-    public String getPassword(){
+    public String getPassword() {
         return password;
 
     }
 
     public String getFullName() {
-        return fName + lName;
+        return fName + " " + lName;
     }
 
     public String getAccoutNumber() {
@@ -93,7 +87,8 @@ public class BankAccount implements Serializable{
         return fName;
     }
 
-    public String getlname() {
+
+    public String getlName() {
         return lName;
     }
 }

@@ -97,7 +97,9 @@ public class MenuActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_transfer) {
+            finish();
             intent = new Intent(this, TransferActivity.class);
+            intent.putExtra("loginAcc",loginAcc);
             startActivity(intent);
         } else if (id == R.id.nav_deposit) {
             finish();
@@ -105,7 +107,9 @@ public class MenuActivity extends AppCompatActivity
             intent.putExtra("loginAcc",loginAcc);
             startActivity(intent);
         } else if (id == R.id.nav_withdraw) {
+            finish();
             intent = new Intent(this, WithdrawActivity.class);
+            intent.putExtra("loginAcc",loginAcc);
             startActivity(intent);
         } else if (id == R.id.nav_logout) {
             finish();

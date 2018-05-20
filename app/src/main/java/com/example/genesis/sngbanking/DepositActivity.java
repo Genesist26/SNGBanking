@@ -36,7 +36,7 @@ public class DepositActivity extends AppCompatActivity {
     public void onClickSubmit(View v) {
         double amount = Double.parseDouble(etAmount.getText().toString());
         loginAcc.deposit(amount);
-        mHelper.addAcc(loginAcc);
+        mHelper.updateAcc(loginAcc);
         finish();
         Intent intent = new Intent(this, MenuActivity.class);
         intent.putExtra("loginAcc",loginAcc);

@@ -56,16 +56,18 @@ public class BankAccount implements Serializable {
         return lastAccountNumber;
     }
 
-    public boolean transfer(BankAccount a, BankAccount b, double amount) {
+    public String transfer(BankAccount a, BankAccount b, double amount) {
         if (a.getBalance() < amount)
-            return false;
+            return "Insufficient Funds!!!";
+        if (b == null)
+            return "Wrong Account Number!";
 
         // check b is exists
 
         a.withdraw(amount);
         b.deposit(amount);
 
-        return true;
+        return "Completed";
     }
 
     public String getEmail() {

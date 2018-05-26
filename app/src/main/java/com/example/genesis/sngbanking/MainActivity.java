@@ -51,13 +51,27 @@ public class MainActivity extends AppCompatActivity {
         } else {
             mHelper = new Database.MyDbHelper(this);
             mDb = mHelper.getWritableDatabase();
+/*
             mCursor = mDb.rawQuery("SELECT " + Database.MyDbHelper.COL_FIRSTNAME + ", "
                     + Database.MyDbHelper.COL_LASTNAME + ", "  + Database.MyDbHelper.COL_ACCNUMBER
                     + ", "  + Database.MyDbHelper.COL_EMAIL + ", "  + Database.MyDbHelper.COL_PASS
                     + ", "  + Database.MyDbHelper.COL_BALANCE + " FROM " + Database.MyDbHelper.TABLE_NAME
                     + " WHERE " + Database.MyDbHelper.COL_EMAIL + " = ? AND "
                     + Database.MyDbHelper.COL_PASS + " = ?", new String[] {loginMail, loginPass});
-            Log.i("sng","LINE:58");
+*/
+
+            mCursor = mDb.rawQuery("SELECT *"+
+                    " FROM " + Database.MyDbHelper.TABLE_NAME +
+                    " WHERE " + Database.MyDbHelper.COL_EMAIL + " = ? AND "
+                    + Database.MyDbHelper.COL_PASS + " = ?", new String[] {loginMail, loginPass});
+
+            /*
+            String query = "Select * from " + Database.MyDbHelper.TABLE_NAME +
+                    " where " + Database.MyDbHelper.COL_EMAIL + " = ?" + loginMail +
+                    " AND "   + Database.MyDbHelper.COL_PASS +  " = ?" + loginPass;
+
+            mCursor = mDb.rawQuery(query, null);
+            */
             if (mCursor.moveToFirst()) {
                 loginAcc = new BankAccount(mCursor.getString(mCursor.getColumnIndex(Database.MyDbHelper.COL_FIRSTNAME)),
                         mCursor.getString(mCursor.getColumnIndex(Database.MyDbHelper.COL_LASTNAME)),

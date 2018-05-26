@@ -33,38 +33,18 @@ public class Database {
                     + COL_PASS + " TEXT, " + COL_FIRSTNAME + " TEXT, "
                     + COL_LASTNAME + " TEXT, " + COL_BALANCE + " REAL);");
 
-            db.execSQL("INSERT INTO " + TABLE_NAME + " (" + COL_ACCNUMBER + ", " + COL_EMAIL + ", " + COL_PASS
-                    + ", " + COL_FIRSTNAME + ", " + COL_LASTNAME + ", " + COL_BALANCE + ") VALUES ('1', 'sunsun@gmail.com', " +
-                    "'1234', 'Chantapat', 'Sopontanasiri', 3000);");
-            db.execSQL("INSERT INTO " + TABLE_NAME + " ("  + COL_ACCNUMBER + ", " + COL_EMAIL + ", " + COL_PASS
-                    + ", " + COL_FIRSTNAME + ", " + COL_LASTNAME + ", " + COL_BALANCE + ") VALUES ('2', 'gene@gmail.com', " +
-                    "'1234', 'Gene', 'Somsak', 3000);");
-            db.execSQL("INSERT INTO " + TABLE_NAME + " (" + COL_ACCNUMBER + ", "  + COL_EMAIL + ", " + COL_PASS
-                    + ", " + COL_FIRSTNAME + ", " + COL_LASTNAME + ", " + COL_BALANCE + ") VALUES ('3', 'nalina@gmail.com', " +
-                    "'1234', 'nalina', 'vitee', 5000);");
+            // test account
+            addAcc("Somsak","Binarwaeloh","somsakwp8@gmail.com","1234");
+            addAcc("Chantapat","Sopontanasiri","sunsun@gmail.com","1234");
+            addAcc("Nalina","Witee","nalina@gmail.com","1234");
+            addAcc("test","test","test@test.com","test");
         }
 
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
             onCreate(db);
         }
-/*
-        public void addAcc(BankAccount ba) {
-            sqLiteDatabase = this.getWritableDatabase();
 
-            ContentValues values = new ContentValues();
-            values.put(COL_ACCNUMBER, ba.getAccoutNumber());
-            values.put(COL_EMAIL, ba.getEmail());
-            values.put(COL_PASS, ba.getPassword());
-            values.put(COL_FIRSTNAME, ba.getfName());
-            values.put(COL_LASTNAME, ba.getlName());
-            values.put(COL_BALANCE, ba.getBalance());
-
-            sqLiteDatabase.insert(TABLE_NAME, null, values);
-
-            sqLiteDatabase.close();
-        }
-*/
         public void addAcc(String fname, String lname, String email, String pass) {
             sqLiteDatabase = this.getWritableDatabase();
 

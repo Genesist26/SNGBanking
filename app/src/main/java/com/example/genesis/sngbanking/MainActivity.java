@@ -27,28 +27,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        aList = new Account();
-        aList.addAccount("TestUser","TestUser",1,"test","1234",9999);
-        aList.addAccount("Genesis","G",2,"gene","1234",9999);
-        aList.addAccount("nalina","N",3,"nalina","1234",9999);
-        aList.addAccount("chantapat","C",4,"chantapat","1234",9999);
-
         btLogin = (Button) findViewById(R.id.btLogin);
         btSignup = (Button) findViewById(R.id.btSignup);
         etEmail = (EditText) findViewById(R.id.etEmail);
         etPass  = (EditText) findViewById(R.id.etPass);
 
-
     }
-
 
     public void onClickLogin(View v){
 
         String loginMail = etEmail.getText().toString();
         String loginPass = etPass.getText().toString();
         String pin;
-
-
 
         if(loginMail.isEmpty() || loginPass.isEmpty()){
             Toast errorToast = Toast.makeText(this, "Empty email or password", Toast.LENGTH_SHORT);

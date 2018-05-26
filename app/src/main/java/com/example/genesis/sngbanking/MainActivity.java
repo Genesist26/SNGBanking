@@ -57,18 +57,18 @@ public class MainActivity extends AppCompatActivity {
             mHelper = new Database.MyDbHelper(this);
             mDb = mHelper.getWritableDatabase();
             mCursor = mDb.rawQuery("SELECT " + Database.MyDbHelper.COL_FIRSTNAME + ", "
-                    + Database.MyDbHelper.COL_SURENAME + ", "  + Database.MyDbHelper.COL_ACCNUMBER
-                    + ", "  + Database.MyDbHelper.COL_EMAIL + ", "  + Database.MyDbHelper.COL_PIN
+                    + Database.MyDbHelper.COL_LASTNAME + ", "  + Database.MyDbHelper.COL_ACCNUMBER
+                    + ", "  + Database.MyDbHelper.COL_EMAIL + ", "  + Database.MyDbHelper.COL_PASS
                     + ", "  + Database.MyDbHelper.COL_BALANCE + " FROM " + Database.MyDbHelper.TABLE_NAME
                     + " WHERE " + Database.MyDbHelper.COL_EMAIL + " = ? AND "
-                    + Database.MyDbHelper.COL_PIN + " = ?", new String[] {loginMail, loginPass});
+                    + Database.MyDbHelper.COL_PASS + " = ?", new String[] {loginMail, loginPass});
 
             if (mCursor.moveToFirst()) {
                 loginAcc = new BankAccount(mCursor.getString(mCursor.getColumnIndex(Database.MyDbHelper.COL_FIRSTNAME)),
-                        mCursor.getString(mCursor.getColumnIndex(Database.MyDbHelper.COL_SURENAME)),
+                        mCursor.getString(mCursor.getColumnIndex(Database.MyDbHelper.COL_LASTNAME)),
                         mCursor.getInt(mCursor.getColumnIndex(Database.MyDbHelper.COL_ACCNUMBER)),
                         mCursor.getString(mCursor.getColumnIndex(Database.MyDbHelper.COL_EMAIL)),
-                        mCursor.getString(mCursor.getColumnIndex(Database.MyDbHelper.COL_PIN)),
+                        mCursor.getString(mCursor.getColumnIndex(Database.MyDbHelper.COL_PASS)),
                         mCursor.getDouble(mCursor.getColumnIndex(Database.MyDbHelper.COL_BALANCE)));
             }
 

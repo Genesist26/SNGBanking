@@ -14,11 +14,13 @@ public class Database {
         public static final String TABLE_NAME = "acc";
         public static final String COL_ACCNUMBER = "accNumber";
         public static final String COL_EMAIL = "email";
-        public static final String COL_PIN = "pin";
+        public static final String COL_PASS = "pass";
         public static final String COL_FIRSTNAME = "firstName";
-        public static final String COL_SURENAME = "surname";
+        public static final String COL_LASTNAME = "lastName";
         public static final String COL_BALANCE = "balance";
         private SQLiteDatabase sqLiteDatabase;
+
+        private static long lastAccNumber = 4823521350L;
 
 
         public MyDbHelper(Context context) {
@@ -28,17 +30,17 @@ public class Database {
         public void onCreate(SQLiteDatabase db) { ;
             db.execSQL("CREATE TABLE " + TABLE_NAME +" ( _id INTEGER PRIMARY KEY AUTOINCREMENT, "
                     + COL_ACCNUMBER + " TEXT, " + COL_EMAIL + " TEXT, "
-                    + COL_PIN + " TEXT, " + COL_FIRSTNAME + " TEXT, "
-                    + COL_SURENAME + " TEXT, " + COL_BALANCE + " REAL);");
+                    + COL_PASS + " TEXT, " + COL_FIRSTNAME + " TEXT, "
+                    + COL_LASTNAME + " TEXT, " + COL_BALANCE + " REAL);");
 
-            db.execSQL("INSERT INTO " + TABLE_NAME + " (" + COL_ACCNUMBER + ", " + COL_EMAIL + ", " + COL_PIN
-                    + ", " + COL_FIRSTNAME + ", " + COL_SURENAME + ", " + COL_BALANCE + ") VALUES ('1', 'sunsun@gmail.com', " +
+            db.execSQL("INSERT INTO " + TABLE_NAME + " (" + COL_ACCNUMBER + ", " + COL_EMAIL + ", " + COL_PASS
+                    + ", " + COL_FIRSTNAME + ", " + COL_LASTNAME + ", " + COL_BALANCE + ") VALUES ('1', 'sunsun@gmail.com', " +
                     "'1234', 'Chantapat', 'Sopontanasiri', 3000);");
-            db.execSQL("INSERT INTO " + TABLE_NAME + " ("  + COL_ACCNUMBER + ", " + COL_EMAIL + ", " + COL_PIN
-                    + ", " + COL_FIRSTNAME + ", " + COL_SURENAME + ", " + COL_BALANCE + ") VALUES ('2', 'gene@gmail.com', " +
+            db.execSQL("INSERT INTO " + TABLE_NAME + " ("  + COL_ACCNUMBER + ", " + COL_EMAIL + ", " + COL_PASS
+                    + ", " + COL_FIRSTNAME + ", " + COL_LASTNAME + ", " + COL_BALANCE + ") VALUES ('2', 'gene@gmail.com', " +
                     "'1234', 'Gene', 'Somsak', 3000);");
-            db.execSQL("INSERT INTO " + TABLE_NAME + " (" + COL_ACCNUMBER + ", "  + COL_EMAIL + ", " + COL_PIN
-                    + ", " + COL_FIRSTNAME + ", " + COL_SURENAME + ", " + COL_BALANCE + ") VALUES ('3', 'nalina@gmail.com', " +
+            db.execSQL("INSERT INTO " + TABLE_NAME + " (" + COL_ACCNUMBER + ", "  + COL_EMAIL + ", " + COL_PASS
+                    + ", " + COL_FIRSTNAME + ", " + COL_LASTNAME + ", " + COL_BALANCE + ") VALUES ('3', 'nalina@gmail.com', " +
                     "'1234', 'nalina', 'vitee', 5000);");
         }
 
@@ -46,20 +48,35 @@ public class Database {
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
             onCreate(db);
         }
-
+/*
         public void addAcc(BankAccount ba) {
             sqLiteDatabase = this.getWritableDatabase();
 
             ContentValues values = new ContentValues();
             values.put(COL_ACCNUMBER, ba.getAccoutNumber());
             values.put(COL_EMAIL, ba.getEmail());
-            values.put(COL_PIN, ba.getPassword());
+            values.put(COL_PASS, ba.getPassword());
             values.put(COL_FIRSTNAME, ba.getfName());
-            values.put(COL_SURENAME, ba.getlName());
+            values.put(COL_LASTNAME, ba.getlName());
             values.put(COL_BALANCE, ba.getBalance());
 
             sqLiteDatabase.insert(TABLE_NAME, null, values);
 
+            sqLiteDatabase.close();
+        }
+*/
+        public void addAcc(String fname, String lname, String email, String pass) {
+            sqLiteDatabase = this.getWritableDatabase();
+
+            ContentValues values = new ContentValues();
+            values.put(COL_ACCNUMBER, Long.toString(++lastAccNumber));
+            values.put(COL_EMAIL, email);
+            values.put(COL_PASS, pass);
+            values.put(COL_FIRSTNAME, fname);
+            values.put(COL_LASTNAME, lname);
+            values.put(COL_BALANCE, 0);
+
+            sqLiteDatabase.insert(TABLE_NAME, null, values);
             sqLiteDatabase.close();
         }
 
@@ -70,9 +87,9 @@ public class Database {
             ContentValues values = new ContentValues();
             values.put(COL_ACCNUMBER, ba.getAccoutNumber());
             values.put(COL_EMAIL, ba.getEmail());
-            values.put(COL_PIN, ba.getPassword());
+            values.put(COL_PASS, ba.getPassword());
             values.put(COL_FIRSTNAME, ba.getfName());
-            values.put(COL_SURENAME, ba.getlName());
+            values.put(COL_LASTNAME, ba.getlName());
             values.put(COL_BALANCE, ba.getBalance());
 
             int row = sqLiteDatabase.update(TABLE_NAME,

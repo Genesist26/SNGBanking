@@ -32,14 +32,13 @@ public class RegisterActivity extends AppCompatActivity {
 
         String fname = etFirstname.getText().toString();
         String lname = etSurname.getText().toString();
-        int    accNum= Integer.parseInt(etAccnumbe.getText().toString());
         String email = etEmail.getText().toString();
         String pass  = etPass.getText().toString();
         String passConf = etPassCon.getText().toString();
 
         if(pass.equals(passConf)) {
-            anAcc = new BankAccount(fname, lname, accNum, email, pass, 1000);
-            mHelper.addAcc(anAcc);
+            //anAcc = new BankAccount(fname, lname, accNum, email, pass, 1000);
+            mHelper.addAcc(fname, lname, email, pass);
 
             Toast errorToast = Toast.makeText(this, "Your account was created", Toast.LENGTH_SHORT);
             errorToast.show();
@@ -47,7 +46,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         }
         else{
-            Toast errorToast = Toast.makeText(this, "Error, password not equals", Toast.LENGTH_SHORT);
+            Toast errorToast = Toast.makeText(this, "Error: password not equals", Toast.LENGTH_SHORT);
             errorToast.show();
         }
 

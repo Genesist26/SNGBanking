@@ -32,12 +32,6 @@ public class Database {
                     + COL_ACCNUMBER + " TEXT, " + COL_EMAIL + " TEXT, "
                     + COL_PASS + " TEXT, " + COL_FIRSTNAME + " TEXT, "
                     + COL_LASTNAME + " TEXT, " + COL_BALANCE + " REAL);");
-
-            // test account
-            addAcc("Somsak","Binarwaeloh","somsakwp8@gmail.com","1234");
-            addAcc("Chantapat","Sopontanasiri","sunsun@gmail.com","1234");
-            addAcc("Nalina","Witee","nalina@gmail.com","1234");
-            addAcc("test","test","test@test.com","test");
         }
 
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {

@@ -1,6 +1,7 @@
 package com.example.genesis.sngbanking;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.media.audiofx.AcousticEchoCanceler;
@@ -21,16 +22,20 @@ public class MainActivity extends AppCompatActivity {
     Database.MyDbHelper mHelper;
     Cursor mCursor;
     BankAccount loginAcc;
+    SharedPreferences prefs = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        prefs = getSharedPreferences("com.example.genesis.sngbanking", MODE_PRIVATE);
 
         btLogin = (Button) findViewById(R.id.btLogin);
         btSignup = (Button) findViewById(R.id.btSignup);
         etEmail = (EditText) findViewById(R.id.etEmail);
         etPass  = (EditText) findViewById(R.id.etPass);
+
+        firstUse();
 
     }
 
@@ -52,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
                     + ", "  + Database.MyDbHelper.COL_BALANCE + " FROM " + Database.MyDbHelper.TABLE_NAME
                     + " WHERE " + Database.MyDbHelper.COL_EMAIL + " = ? AND "
                     + Database.MyDbHelper.COL_PASS + " = ?", new String[] {loginMail, loginPass});
-
+            Log.i("sng","LINE:58");
             if (mCursor.moveToFirst()) {
                 loginAcc = new BankAccount(mCursor.getString(mCursor.getColumnIndex(Database.MyDbHelper.COL_FIRSTNAME)),
                         mCursor.getString(mCursor.getColumnIndex(Database.MyDbHelper.COL_LASTNAME)),
@@ -62,7 +67,6 @@ public class MainActivity extends AppCompatActivity {
                         mCursor.getDouble(mCursor.getColumnIndex(Database.MyDbHelper.COL_BALANCE)));
             }
 
-//            loginAcc = aList.search(loginMail, loginPass);
             if(loginAcc == null) {
                 Toast errorToast = Toast.makeText(this, "Email or Password incorrect", Toast.LENGTH_SHORT);
                 errorToast.show();
@@ -82,5 +86,20 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void firstUse() {
+        Database.MyDbHelper mHelper = new Database.MyDbHelper(this);
+
+        // check first use
+        if (prefs.getBoolean("firstrun", true)) {
+
+            //add sample accout
+            mHelper.addAcc("test","test","test","test");
+            mHelper.addAcc("Somsak","Binarwaeloh","somsakwp8@gmail.com","1234");
+            mHelper.addAcc("Chantapat","Sopontanasiri","sunsun@gmail.com","1234");
+            mHelper.addAcc("Nalina","Witee","nalina@gmail.com","1234");
+
+            prefs.edit().putBoolean("firstrun", false).commit();
+        }
+    }
 }
 

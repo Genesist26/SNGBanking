@@ -8,6 +8,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -57,6 +58,7 @@ public class DepositActivity extends AppCompatActivity
         double amount = Double.parseDouble(etAmount.getText().toString());
         loginAcc.deposit(amount);
         mHelper.updateAcc(loginAcc);
+        Log.i("sng","Deposit: "+amount+", newBalanc="+loginAcc.getBalance());
         finish();
         Intent intent = new Intent(this, MenuActivity.class);
         intent.putExtra("loginAcc",loginAcc);
@@ -92,5 +94,11 @@ public class DepositActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        Log.i("sng","Deposit Activity");
     }
 }

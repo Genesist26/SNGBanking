@@ -31,7 +31,6 @@ public class TransferActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -62,14 +61,13 @@ public class TransferActivity extends AppCompatActivity
             } else {
                 mHelper.updateAcc(loginAcc);
                 mHelper.updateAcc(destAcc);
+                Log.i("sng","transfer: "+amount+" to: "+destAccNumber+", newBalanc="+loginAcc.getBalance());
                 finish();
                 Intent intent = new Intent(this, MenuActivity.class);
                 intent.putExtra("loginAcc",loginAcc);
                 startActivity(intent);
             }
         }
-
-
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -102,5 +100,10 @@ public class TransferActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        Log.i("sng","Transfer Activity");
+    }
 }
-//4823521352 test2

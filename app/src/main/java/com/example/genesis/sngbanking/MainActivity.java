@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
             if (loginAcc == null)
                 Toast.makeText(this, "Email or Password incorrect", Toast.LENGTH_SHORT).show();
             else {
-                Log.i("sng", "Login success");
+                Log.i("sng", "Login success user=["+loginAcc.getEmail()+"]");
                 Intent intent = new Intent(this, MenuActivity.class);
                 intent.putExtra("loginAcc", loginAcc);
                 startActivity(intent);
@@ -69,6 +69,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void firstRun() {
+        Log.i("sng","detected firstRun");
+        Log.i("sng","----------------------------------");
+        Log.i("sng","created sample account");
+        Log.i("sng","user=test      pass=test");
+        Log.i("sng","user=test2     pass=test");
+        Log.i("sng","user=Somsak    pass=Binarwaeloh");
+        Log.i("sng","user=Chantapat pass=Sopontanasiri");
+        Log.i("sng","user=Nalina    pass=Witee");
+        Log.i("sng","----------------------------------");
 
         long lastAccNumber = 4823521350L;
         // check first use

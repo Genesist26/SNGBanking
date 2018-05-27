@@ -8,6 +8,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -59,7 +60,7 @@ public class WithdrawActivity extends AppCompatActivity
         if(res == true){
             mHelper.updateAcc(loginAcc);
             Toast.makeText(getApplicationContext(), "Completed", Toast.LENGTH_SHORT).show();
-            // direct to transaction resualt
+            Log.i("sng","Withdraw: "+amount+", newBalanc="+loginAcc.getBalance());
             finish();
             Intent intent = new Intent(this, MenuActivity.class);
             intent.putExtra("loginAcc",loginAcc);
@@ -99,6 +100,12 @@ public class WithdrawActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        Log.i("sng","Withdraw Activity");
     }
 
 }

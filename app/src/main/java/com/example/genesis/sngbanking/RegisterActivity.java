@@ -11,7 +11,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private Button btSubmit;
     private EditText etFirstname, etSurname, etAccnumbe, etEmail, etPass, etPassCon;
-    private Database.MyDbHelper mHelper = new Database.MyDbHelper(this);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,17 +37,15 @@ public class RegisterActivity extends AppCompatActivity {
         String passConf = etPassCon.getText().toString();
 
         if(pass.equals(passConf)) {
-            //anAcc = new BankAccount(fname, lname, accNum, email, pass, 1000);
-            mHelper.addAcc(fname, lname, email, pass);
-
-            Toast errorToast = Toast.makeText(this, "Your account was created", Toast.LENGTH_SHORT);
-            errorToast.show();
+            Database.MyDbHelper mHelper = new Database.MyDbHelper(this);
+            anAcc = new BankAccount(fname, lname, email, pass, 0);
+            mHelper.addAcc(anAcc);
+            Toast.makeText(this, "Your account was created", Toast.LENGTH_SHORT).show();
             finish();
 
         }
         else{
-            Toast errorToast = Toast.makeText(this, "Error: password not equals", Toast.LENGTH_SHORT);
-            errorToast.show();
+            Toast.makeText(this, "Error: password not equals", Toast.LENGTH_SHORT).show();
         }
 
     }

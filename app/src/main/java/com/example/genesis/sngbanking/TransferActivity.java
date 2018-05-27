@@ -8,15 +8,19 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class TransferActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
 
     BankAccount loginAcc;
     private EditText etToAcc, etAmount;
+    Database.MyDbHelper mHelper = new Database.MyDbHelper(this);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +30,6 @@ public class TransferActivity extends AppCompatActivity
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -42,15 +45,29 @@ public class TransferActivity extends AppCompatActivity
     }
 
     public void onClickSubmit(View v) {
-        String toAcc = etToAcc.toString();
-        Double amount = Double.parseDouble(etAmount.toString());
+        BankAccount destAcc;
+        String destAccNumber = etToAcc.getText().toString();
+        Double amount = Double.parseDouble(etAmount.getText().toString());
 
+        mHelper = new Database.MyDbHelper(this);
+        destAcc = mHelper.getBankAcc(destAccNumber);
 
-
-        finish();
-        Intent intent = new Intent(this, MenuActivity.class);
-        intent.putExtra("loginAcc",loginAcc);
-        startActivity(intent);
+        if(destAcc == null){
+            Toast.makeText(this, "Eror: Destination account not exists!",Toast.LENGTH_SHORT).show();
+        }
+        else {
+            if(!loginAcc.transfer(destAcc,amount)){
+                Toast.makeText(this, "Eror: Insufficient funds ",Toast.LENGTH_SHORT).show();
+            } else {
+                mHelper.updateAcc(loginAcc);
+                mHelper.updateAcc(destAcc);
+                Log.i("sng","transfer: "+amount+" to: "+destAccNumber+", newBalanc="+loginAcc.getBalance());
+                finish();
+                Intent intent = new Intent(this, MenuActivity.class);
+                intent.putExtra("loginAcc",loginAcc);
+                startActivity(intent);
+            }
+        }
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -82,5 +99,11 @@ public class TransferActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        Log.i("sng","Transfer Activity");
     }
 }

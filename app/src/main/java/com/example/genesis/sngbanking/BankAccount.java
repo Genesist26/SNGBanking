@@ -10,23 +10,33 @@ public class BankAccount implements Serializable {
     private String lName;
     private String email;
     private String password;
+    private long accountNumber;
     private double balance;
-    private int accountNumber;
 
-    private static int lastAccountNumber = 0;
 
-    public BankAccount(String fName, String lName, int accountNumber,
-                       String email, String password, double intialBalance) {
+    private static long lastAccountNumber = 4823521350L;
+
+    public BankAccount(String fName, String lName,
+                       String email, String password,
+                       double intialBalance) {
         this.fName = fName;
         this.lName = lName;
-        this.accountNumber = accountNumber;
         this.email = email;
         this.password = password;
+        this.balance = intialBalance;
+        this.accountNumber = ++lastAccountNumber;
+    }
 
-        balance = intialBalance;
+    public BankAccount(String fName, String lName,
+                       String email, String password,
+                       String accountNumber, double intialBalance) {
+        this.fName = fName;
+        this.lName = lName;
+        this.email = email;
+        this.password = password;
+        this.accountNumber = Long.parseLong(accountNumber);
+        this.balance = intialBalance;
 
-        accountNumber = lastAccountNumber + 1;
-        lastAccountNumber = accountNumber;
     }
 
 
@@ -44,7 +54,7 @@ public class BankAccount implements Serializable {
         }
     }
 
-    public int getNumber() {
+    public long getAccNumber() {
         return accountNumber;
     }
 
@@ -52,22 +62,14 @@ public class BankAccount implements Serializable {
         return balance;
     }
 
-    public static int getLastAccountNumber() {
-        return lastAccountNumber;
-    }
+    public boolean transfer(BankAccount destAcc, double amount) {
+        if (this.getBalance() < amount)
+            return false;
 
-    public String transfer(BankAccount a, BankAccount b, double amount) {
-        if (a.getBalance() < amount)
-            return "Insufficient Funds!!!";
-        if (b == null)
-            return "Wrong Account Number!";
+        this.withdraw(amount);
+        destAcc.deposit(amount);
 
-        // check b is exists
-
-        a.withdraw(amount);
-        b.deposit(amount);
-
-        return "Completed";
+        return true;
     }
 
     public String getEmail() {
@@ -84,7 +86,7 @@ public class BankAccount implements Serializable {
     }
 
     public String getAccoutNumber() {
-        return Integer.toString(accountNumber);
+        return Long.toString(accountNumber);
     }
 
     public String getfName() {

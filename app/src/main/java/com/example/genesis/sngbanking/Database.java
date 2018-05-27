@@ -2,6 +2,7 @@ package com.example.genesis.sngbanking;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -14,13 +15,11 @@ public class Database {
         public static final String TABLE_NAME = "acc";
         public static final String COL_ACCNUMBER = "accNumber";
         public static final String COL_EMAIL = "email";
-        public static final String COL_PASS = "pass";
+        public static final String COL_PASS = "pin";
         public static final String COL_FIRSTNAME = "firstName";
-        public static final String COL_LASTNAME = "lastName";
+        public static final String COL_LASTNAME = "surname";
         public static final String COL_BALANCE = "balance";
         private SQLiteDatabase sqLiteDatabase;
-
-        private static long lastAccNumber = 4823521350L;
 
 
         public MyDbHelper(Context context) {
@@ -39,24 +38,8 @@ public class Database {
             onCreate(db);
         }
 
-        public void addAcc(String fname, String lname, String email, String pass) {
+        public void addAcc(BankAccount ba) {
             sqLiteDatabase = this.getWritableDatabase();
-
-            ContentValues values = new ContentValues();
-            values.put(COL_ACCNUMBER, Long.toString(++lastAccNumber));
-            values.put(COL_EMAIL, email);
-            values.put(COL_PASS, pass);
-            values.put(COL_FIRSTNAME, fname);
-            values.put(COL_LASTNAME, lname);
-            values.put(COL_BALANCE, 0);
-
-            sqLiteDatabase.insert(TABLE_NAME, null, values);
-            sqLiteDatabase.close();
-        }
-
-        public void updateAcc(BankAccount ba) {
-
-            sqLiteDatabase  = this.getWritableDatabase();
 
             ContentValues values = new ContentValues();
             values.put(COL_ACCNUMBER, ba.getAccoutNumber());
@@ -66,21 +49,92 @@ public class Database {
             values.put(COL_LASTNAME, ba.getlName());
             values.put(COL_BALANCE, ba.getBalance());
 
-            int row = sqLiteDatabase.update(TABLE_NAME,
-                    values,
-                    COL_ACCNUMBER + " = ? ",
-                    new String[] { String.valueOf(ba.getAccoutNumber()) });
+            sqLiteDatabase.insert(TABLE_NAME, null, values);
 
             sqLiteDatabase.close();
         }
 
-        public void deleteAvv(String accNO) {
+        public void updateAcc(BankAccount anAcc) {
 
-            sqLiteDatabase = this.getWritableDatabase();
+            sqLiteDatabase  = this.getWritableDatabase();
 
-            sqLiteDatabase.delete(TABLE_NAME, COL_ACCNUMBER + " = " + accNO, null);
+            ContentValues values = new ContentValues();
+            values.put(COL_ACCNUMBER, anAcc.getAccoutNumber());
+            values.put(COL_EMAIL, anAcc.getEmail());
+            values.put(COL_PASS, anAcc.getPassword());
+            values.put(COL_FIRSTNAME, anAcc.getfName());
+            values.put(COL_LASTNAME, anAcc.getlName());
+            values.put(COL_BALANCE, anAcc.getBalance());
+
+            sqLiteDatabase.update(TABLE_NAME,
+                    values, COL_ACCNUMBER + " = ? ",
+                    new String[] { anAcc.getAccoutNumber()});
 
             sqLiteDatabase.close();
+        }
+
+        public void deleteAcc(String accNO) {
+
+            sqLiteDatabase = this.getWritableDatabase();
+            sqLiteDatabase.delete(TABLE_NAME, COL_ACCNUMBER + " = " + accNO, null);
+            sqLiteDatabase.close();
+        }
+
+        public BankAccount getBankAcc(String loginMail, String loginPass){
+            BankAccount loginAcc;
+            Cursor mCursor;
+            sqLiteDatabase  = this.getWritableDatabase();
+            String query = "SELECT *"+
+                    " FROM " + Database.MyDbHelper.TABLE_NAME +
+                    " WHERE " + Database.MyDbHelper.COL_EMAIL + " = ? AND "
+                    + Database.MyDbHelper.COL_PASS  + " = ?";
+
+            mCursor = sqLiteDatabase.rawQuery(query, new String[] {loginMail, loginPass});
+
+            if(mCursor.getCount() <= 0){
+                mCursor.close();
+                sqLiteDatabase.close();
+                return null;
+            }else {
+                mCursor.moveToFirst();
+                loginAcc = new BankAccount(mCursor.getString(mCursor.getColumnIndex(Database.MyDbHelper.COL_FIRSTNAME)),
+                        mCursor.getString(mCursor.getColumnIndex(Database.MyDbHelper.COL_LASTNAME)),
+                        mCursor.getString(mCursor.getColumnIndex(Database.MyDbHelper.COL_EMAIL)),
+                        mCursor.getString(mCursor.getColumnIndex(Database.MyDbHelper.COL_PASS)),
+                        mCursor.getString(mCursor.getColumnIndex(Database.MyDbHelper.COL_ACCNUMBER)),
+                        mCursor.getDouble(mCursor.getColumnIndex(Database.MyDbHelper.COL_BALANCE)));
+                mCursor.close();
+                sqLiteDatabase.close();
+                return loginAcc;
+            }
+        }
+
+        public BankAccount getBankAcc(String destAccNumber){
+            BankAccount destAcc;
+            Cursor mCursor;
+            sqLiteDatabase  = this.getWritableDatabase();
+            String query = "SELECT *"+
+                    " FROM " + Database.MyDbHelper.TABLE_NAME +
+                    " WHERE " + Database.MyDbHelper.COL_ACCNUMBER + " = ?";
+
+            mCursor = sqLiteDatabase.rawQuery(query, new String[] {destAccNumber});
+
+            if(mCursor.getCount() <= 0){
+                mCursor.close();
+                sqLiteDatabase.close();
+                return null;
+            }else {
+                mCursor.moveToFirst();
+                destAcc = new BankAccount(mCursor.getString(mCursor.getColumnIndex(Database.MyDbHelper.COL_FIRSTNAME)),
+                        mCursor.getString(mCursor.getColumnIndex(Database.MyDbHelper.COL_LASTNAME)),
+                        mCursor.getString(mCursor.getColumnIndex(Database.MyDbHelper.COL_EMAIL)),
+                        mCursor.getString(mCursor.getColumnIndex(Database.MyDbHelper.COL_PASS)),
+                        mCursor.getString(mCursor.getColumnIndex(Database.MyDbHelper.COL_ACCNUMBER)),
+                        mCursor.getDouble(mCursor.getColumnIndex(Database.MyDbHelper.COL_BALANCE)));
+                mCursor.close();
+                sqLiteDatabase.close();
+                return destAcc;
+            }
         }
     }
 }

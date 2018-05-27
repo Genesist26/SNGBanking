@@ -17,12 +17,11 @@ public class MainActivity extends AppCompatActivity {
 
     private Button btLogin, btSignup;
     private EditText etEmail, etPass;
-    public static Account aList;
     SQLiteDatabase mDb;
-    Database.MyDbHelper mHelper;
     Cursor mCursor;
     BankAccount loginAcc;
     SharedPreferences prefs = null;
+    Database.MyDbHelper mHelper = new Database.MyDbHelper(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         etEmail = (EditText) findViewById(R.id.etEmail);
         etPass  = (EditText) findViewById(R.id.etPass);
 
-        firstUse();
+        firstRun();
 
     }
 
@@ -46,53 +45,22 @@ public class MainActivity extends AppCompatActivity {
         String pin;
 
         if(loginMail.isEmpty() || loginPass.isEmpty()){
-            Toast errorToast = Toast.makeText(this, "Empty email or password", Toast.LENGTH_SHORT);
-            errorToast.show();
-        } else {
+            Toast.makeText(this, "Empty email or password", Toast.LENGTH_SHORT).show();
+        }
+        else {
             mHelper = new Database.MyDbHelper(this);
-            mDb = mHelper.getWritableDatabase();
-/*
-            mCursor = mDb.rawQuery("SELECT " + Database.MyDbHelper.COL_FIRSTNAME + ", "
-                    + Database.MyDbHelper.COL_LASTNAME + ", "  + Database.MyDbHelper.COL_ACCNUMBER
-                    + ", "  + Database.MyDbHelper.COL_EMAIL + ", "  + Database.MyDbHelper.COL_PASS
-                    + ", "  + Database.MyDbHelper.COL_BALANCE + " FROM " + Database.MyDbHelper.TABLE_NAME
-                    + " WHERE " + Database.MyDbHelper.COL_EMAIL + " = ? AND "
-                    + Database.MyDbHelper.COL_PASS + " = ?", new String[] {loginMail, loginPass});
-*/
+            loginAcc = mHelper.getBankAcc(loginMail, loginPass);
 
-            mCursor = mDb.rawQuery("SELECT *"+
-                    " FROM " + Database.MyDbHelper.TABLE_NAME +
-                    " WHERE " + Database.MyDbHelper.COL_EMAIL + " = ? AND "
-                    + Database.MyDbHelper.COL_PASS + " = ?", new String[] {loginMail, loginPass});
-
-            /*
-            String query = "Select * from " + Database.MyDbHelper.TABLE_NAME +
-                    " where " + Database.MyDbHelper.COL_EMAIL + " = ?" + loginMail +
-                    " AND "   + Database.MyDbHelper.COL_PASS +  " = ?" + loginPass;
-
-            mCursor = mDb.rawQuery(query, null);
-            */
-            if (mCursor.moveToFirst()) {
-                loginAcc = new BankAccount(mCursor.getString(mCursor.getColumnIndex(Database.MyDbHelper.COL_FIRSTNAME)),
-                        mCursor.getString(mCursor.getColumnIndex(Database.MyDbHelper.COL_LASTNAME)),
-                        mCursor.getInt(mCursor.getColumnIndex(Database.MyDbHelper.COL_ACCNUMBER)),
-                        mCursor.getString(mCursor.getColumnIndex(Database.MyDbHelper.COL_EMAIL)),
-                        mCursor.getString(mCursor.getColumnIndex(Database.MyDbHelper.COL_PASS)),
-                        mCursor.getDouble(mCursor.getColumnIndex(Database.MyDbHelper.COL_BALANCE)));
-            }
-
-            if(loginAcc == null) {
-                Toast errorToast = Toast.makeText(this, "Email or Password incorrect", Toast.LENGTH_SHORT);
-                errorToast.show();
-            }
+            // is record exists
+            if (loginAcc == null)
+                Toast.makeText(this, "Email or Password incorrect", Toast.LENGTH_SHORT).show();
             else {
-                Log.i("Info", "Login success");
+                Log.i("sng", "Login success user=["+loginAcc.getEmail()+"], acc=["+loginAcc.getAccoutNumber()+"]");
                 Intent intent = new Intent(this, MenuActivity.class);
-                intent.putExtra("loginAcc",loginAcc);
+                intent.putExtra("loginAcc", loginAcc);
                 startActivity(intent);
             }
         }
-
     }
 
     public void setOnClickSignup(View v) {
@@ -100,18 +68,34 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void firstUse() {
-        Database.MyDbHelper mHelper = new Database.MyDbHelper(this);
+    public void firstRun() {
+        Log.i("sng","detected firstRun");
+        Log.i("sng","----------------------------------");
+        Log.i("sng","created sample account");
+        Log.i("sng","user=test      pass=test");
+        Log.i("sng","user=test2     pass=test");
+        Log.i("sng","user=Somsak    pass=Binarwaeloh");
+        Log.i("sng","user=Chantapat pass=Sopontanasiri");
+        Log.i("sng","user=Nalina    pass=Witee");
+        Log.i("sng","----------------------------------");
 
+        long lastAccNumber = 4823521350L;
         // check first use
         if (prefs.getBoolean("firstrun", true)) {
 
+            BankAccount a = new BankAccount("test","test","test","test",0);
+            BankAccount a2 = new BankAccount("test2","test2","test2","test",0);
+            BankAccount b = new BankAccount("Somsak","Binarwaeloh","somsakwp8@gmail.com","1234",0);
+            BankAccount c = new BankAccount("Chantapat","Sopontanasiri","sunsun@gmail.com","1234",0);
+            BankAccount d = new BankAccount("Nalina","Witee","nalina@gmail.com","1234",0);
             //add sample accout
-            mHelper.addAcc("test","test","test","test");
-            mHelper.addAcc("Somsak","Binarwaeloh","somsakwp8@gmail.com","1234");
-            mHelper.addAcc("Chantapat","Sopontanasiri","sunsun@gmail.com","1234");
-            mHelper.addAcc("Nalina","Witee","nalina@gmail.com","1234");
+            mHelper.addAcc(a);
+            mHelper.addAcc(a2);
+            mHelper.addAcc(b);
+            mHelper.addAcc(c);
+            mHelper.addAcc(d);
 
+//4823521352
             prefs.edit().putBoolean("firstrun", false).commit();
         }
     }

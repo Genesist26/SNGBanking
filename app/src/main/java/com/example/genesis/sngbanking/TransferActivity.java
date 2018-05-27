@@ -8,15 +8,19 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class TransferActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
 
     BankAccount loginAcc;
     private EditText etToAcc, etAmount;
+    Database.MyDbHelper mHelper = new Database.MyDbHelper(this);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,15 +46,27 @@ public class TransferActivity extends AppCompatActivity
     }
 
     public void onClickSubmit(View v) {
-        String toAcc = etToAcc.toString();
-        Double amount = Double.parseDouble(etAmount.toString());
+        Log.i("sng","Transfer onClickSubmit");
+        BankAccount destAcc;
+        String destAccNumber = etToAcc.getText().toString();
+        Double amount = Double.parseDouble(etAmount.getText().toString());
 
+        mHelper = new Database.MyDbHelper(this);
+        destAcc = mHelper.getBankAcc(destAccNumber);
+        if(destAcc == null){
+            Toast.makeText(this, "Eror: Destination account not exists!",Toast.LENGTH_SHORT);
+        }
+        if(!loginAcc.transfer(destAcc,amount)){
+            Toast.makeText(this, "Eror: Insufficient funds ",Toast.LENGTH_SHORT);
+        } else {
+            mHelper.updateAcc(loginAcc);
+            mHelper.updateAcc(destAcc);
+            finish();
+            Intent intent = new Intent(this, MenuActivity.class);
+            intent.putExtra("loginAcc",loginAcc);
+            startActivity(intent);
+        }
 
-
-        finish();
-        Intent intent = new Intent(this, MenuActivity.class);
-        intent.putExtra("loginAcc",loginAcc);
-        startActivity(intent);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")

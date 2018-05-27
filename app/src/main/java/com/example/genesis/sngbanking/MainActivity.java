@@ -75,16 +75,18 @@ public class MainActivity extends AppCompatActivity {
         if (prefs.getBoolean("firstrun", true)) {
 
             BankAccount a = new BankAccount("test","test","test","test",0);
+            BankAccount a2 = new BankAccount("test2","test2","test2","test",0);
             BankAccount b = new BankAccount("Somsak","Binarwaeloh","somsakwp8@gmail.com","1234",0);
             BankAccount c = new BankAccount("Chantapat","Sopontanasiri","sunsun@gmail.com","1234",0);
             BankAccount d = new BankAccount("Nalina","Witee","nalina@gmail.com","1234",0);
             //add sample accout
             mHelper.addAcc(a);
+            mHelper.addAcc(a2);
             mHelper.addAcc(b);
             mHelper.addAcc(c);
             mHelper.addAcc(d);
 
-
+//4823521352
             prefs.edit().putBoolean("firstrun", false).commit();
         }
     }

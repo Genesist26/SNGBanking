@@ -111,5 +111,34 @@ public class Database {
                 return loginAcc;
             }
         }
+
+        public BankAccount getBankAcc(String destAccNumber){
+            BankAccount destAcc;
+            Cursor mCursor;
+            sqLiteDatabase  = this.getWritableDatabase();
+            String query = "SELECT *"+
+                    " FROM " + MyDbHelper.TABLE_NAME +
+                    " WHERE " + MyDbHelper.COL_ACCNUMBER + " = ? ";
+
+            mCursor = sqLiteDatabase.rawQuery(query, new String[] {destAccNumber});
+
+            if(mCursor.getCount() <= 0){
+                mCursor.close();
+                sqLiteDatabase.close();
+                return null;
+            }else {
+                mCursor.moveToFirst();
+                destAcc = new BankAccount(mCursor.getString(mCursor.getColumnIndex(Database.MyDbHelper.COL_FIRSTNAME)),
+                        mCursor.getString(mCursor.getColumnIndex(Database.MyDbHelper.COL_LASTNAME)),
+                        mCursor.getString(mCursor.getColumnIndex(Database.MyDbHelper.COL_EMAIL)),
+                        mCursor.getString(mCursor.getColumnIndex(Database.MyDbHelper.COL_PASS)),
+                        mCursor.getString(mCursor.getColumnIndex(Database.MyDbHelper.COL_ACCNUMBER)),
+                        mCursor.getDouble(mCursor.getColumnIndex(Database.MyDbHelper.COL_BALANCE)));
+                mCursor.close();
+                sqLiteDatabase.close();
+                return destAcc;
+            }
+        }
     }
 }
+//4823521352 test2

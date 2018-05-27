@@ -62,19 +62,14 @@ public class BankAccount implements Serializable {
         return balance;
     }
 
-    public String transfer(BankAccount a, BankAccount b, double amount) {
-        if (a.getBalance() < amount)
-            return "Insufficient Funds!!!";
-        if (b == null)
-            return "Wrong Account Number!";
+    public boolean transfer(BankAccount destAcc, double amount) {
+        if (this.getBalance() < amount)
+            return false;
 
-        // check b is exists
-        // add code here
+        this.withdraw(amount);
+        destAcc.deposit(amount);
 
-        a.withdraw(amount);
-        b.deposit(amount);
-
-        return "Completed";
+        return true;
     }
 
     public String getEmail() {

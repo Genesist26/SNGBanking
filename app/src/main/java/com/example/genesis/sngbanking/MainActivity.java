@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
             if (loginAcc == null)
                 Toast.makeText(this, "Email or Password incorrect", Toast.LENGTH_SHORT).show();
             else {
-                Log.i("sng", "Login success user=["+loginAcc.getEmail()+"]");
+                Log.i("sng", "Login success user=["+loginAcc.getEmail()+"], acc=["+loginAcc.getAccoutNumber()+"]");
                 Intent intent = new Intent(this, MenuActivity.class);
                 intent.putExtra("loginAcc", loginAcc);
                 startActivity(intent);

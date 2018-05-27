@@ -115,7 +115,7 @@ public class MenuActivity extends AppCompatActivity
             startActivity(intent);
         } else if (id == R.id.nav_logout) {
             finish();
-            Log.i("sng", "Logout success user=["+loginAcc.getEmail()+"]");
+            Log.i("sng", "Logout success, user=["+loginAcc.getEmail()+"]");
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

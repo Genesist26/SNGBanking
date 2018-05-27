@@ -54,22 +54,21 @@ public class Database {
             sqLiteDatabase.close();
         }
 
-        public void updateAcc(BankAccount ba) {
+        public void updateAcc(BankAccount anAcc) {
 
             sqLiteDatabase  = this.getWritableDatabase();
 
             ContentValues values = new ContentValues();
-            values.put(COL_ACCNUMBER, ba.getAccoutNumber());
-            values.put(COL_EMAIL, ba.getEmail());
-            values.put(COL_PASS, ba.getPassword());
-            values.put(COL_FIRSTNAME, ba.getfName());
-            values.put(COL_LASTNAME, ba.getlName());
-            values.put(COL_BALANCE, ba.getBalance());
+            values.put(COL_ACCNUMBER, anAcc.getAccoutNumber());
+            values.put(COL_EMAIL, anAcc.getEmail());
+            values.put(COL_PASS, anAcc.getPassword());
+            values.put(COL_FIRSTNAME, anAcc.getfName());
+            values.put(COL_LASTNAME, anAcc.getlName());
+            values.put(COL_BALANCE, anAcc.getBalance());
 
-            int row = sqLiteDatabase.update(TABLE_NAME,
-                    values,
-                    COL_ACCNUMBER + " = ? ",
-                    new String[] { String.valueOf(ba.getAccoutNumber()) });
+            sqLiteDatabase.update(TABLE_NAME,
+                    values, COL_ACCNUMBER + " = ? ",
+                    new String[] { anAcc.getAccoutNumber()});
 
             sqLiteDatabase.close();
         }
@@ -77,9 +76,7 @@ public class Database {
         public void deleteAcc(String accNO) {
 
             sqLiteDatabase = this.getWritableDatabase();
-
             sqLiteDatabase.delete(TABLE_NAME, COL_ACCNUMBER + " = " + accNO, null);
-
             sqLiteDatabase.close();
         }
 

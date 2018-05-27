@@ -117,8 +117,8 @@ public class Database {
             Cursor mCursor;
             sqLiteDatabase  = this.getWritableDatabase();
             String query = "SELECT *"+
-                    " FROM " + MyDbHelper.TABLE_NAME +
-                    " WHERE " + MyDbHelper.COL_ACCNUMBER + " = ? ";
+                    " FROM " + Database.MyDbHelper.TABLE_NAME +
+                    " WHERE " + Database.MyDbHelper.COL_ACCNUMBER + " = ?";
 
             mCursor = sqLiteDatabase.rawQuery(query, new String[] {destAccNumber});
 
@@ -141,4 +141,3 @@ public class Database {
         }
     }
 }
-//4823521352 test2

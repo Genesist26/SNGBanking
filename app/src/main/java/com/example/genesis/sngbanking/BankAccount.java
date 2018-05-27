@@ -20,12 +20,10 @@ public class BankAccount implements Serializable {
                        double intialBalance) {
         this.fName = fName;
         this.lName = lName;
-        this.accountNumber = accountNumber;
         this.email = email;
         this.password = password;
-
-        balance = intialBalance;
-
+        this.balance = intialBalance;
+        this.accountNumber = ++lastAccountNumber;
     }
 
 

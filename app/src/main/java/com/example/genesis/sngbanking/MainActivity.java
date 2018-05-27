@@ -45,52 +45,22 @@ public class MainActivity extends AppCompatActivity {
         String pin;
 
         if(loginMail.isEmpty() || loginPass.isEmpty()){
-            Toast errorToast = Toast.makeText(this, "Empty email or password", Toast.LENGTH_SHORT);
-            errorToast.show();
-        } else {
+            Toast.makeText(this, "Empty email or password", Toast.LENGTH_SHORT).show();
+        }
+        else {
             mHelper = new Database.MyDbHelper(this);
-            mDb = mHelper.getWritableDatabase();
-/*
-            mCursor = mDb.rawQuery("SELECT " + Database.MyDbHelper.COL_FIRSTNAME + ", "
-                    + Database.MyDbHelper.COL_LASTNAME + ", "  + Database.MyDbHelper.COL_ACCNUMBER
-                    + ", "  + Database.MyDbHelper.COL_EMAIL + ", "  + Database.MyDbHelper.COL_PASS
-                    + ", "  + Database.MyDbHelper.COL_BALANCE + " FROM " + Database.MyDbHelper.TABLE_NAME
-                    + " WHERE " + Database.MyDbHelper.COL_EMAIL + " = ? AND "
-                    + Database.MyDbHelper.COL_PASS + " = ?", new String[] {loginMail, loginPass});
-*/
+            loginAcc = mHelper.getBankAcc(loginMail, loginPass);
 
-            mCursor = mDb.rawQuery("SELECT *"+
-                    " FROM " + Database.MyDbHelper.TABLE_NAME +
-                    " WHERE " + Database.MyDbHelper.COL_EMAIL + " = ? AND "
-                    + Database.MyDbHelper.COL_PASS + " = ?", new String[] {loginMail, loginPass});
-
-            /*
-            String query = "Select * from " + Database.MyDbHelper.TABLE_NAME +
-                    " where " + Database.MyDbHelper.COL_EMAIL + " = ?" + loginMail +
-                    " AND "   + Database.MyDbHelper.COL_PASS +  " = ?" + loginPass;
-
-            mCursor = mDb.rawQuery(query, null);
-            */
-            if (mCursor.moveToFirst()) {
-                loginAcc = new BankAccount(mCursor.getString(mCursor.getColumnIndex(Database.MyDbHelper.COL_FIRSTNAME)),
-                        mCursor.getString(mCursor.getColumnIndex(Database.MyDbHelper.COL_LASTNAME)),
-                        mCursor.getString(mCursor.getColumnIndex(Database.MyDbHelper.COL_EMAIL)),
-                        mCursor.getString(mCursor.getColumnIndex(Database.MyDbHelper.COL_PASS)),
-                        mCursor.getDouble(mCursor.getColumnIndex(Database.MyDbHelper.COL_BALANCE)));
-            }
-
-            if(loginAcc == null) {
-                Toast errorToast = Toast.makeText(this, "Email or Password incorrect", Toast.LENGTH_SHORT);
-                errorToast.show();
-            }
+            // is record exists
+            if (loginAcc == null)
+                Toast.makeText(this, "Email or Password incorrect", Toast.LENGTH_SHORT).show();
             else {
-                Log.i("Info", "Login success");
+                Log.i("sng", "Login success");
                 Intent intent = new Intent(this, MenuActivity.class);
-                intent.putExtra("loginAcc",loginAcc);
+                intent.putExtra("loginAcc", loginAcc);
                 startActivity(intent);
             }
         }
-
     }
 
     public void setOnClickSignup(View v) {

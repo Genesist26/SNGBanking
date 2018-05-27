@@ -2,6 +2,7 @@ package com.example.genesis.sngbanking;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -80,6 +81,34 @@ public class Database {
             sqLiteDatabase.delete(TABLE_NAME, COL_ACCNUMBER + " = " + accNO, null);
 
             sqLiteDatabase.close();
+        }
+
+        public BankAccount getBankAcc(String loginMail, String loginPass){
+            BankAccount loginAcc;
+            Cursor mCursor;
+            sqLiteDatabase  = this.getWritableDatabase();
+            String query = "SELECT *"+
+                    " FROM " + Database.MyDbHelper.TABLE_NAME +
+                    " WHERE " + Database.MyDbHelper.COL_EMAIL + " = ? AND "
+                    + Database.MyDbHelper.COL_PASS  + " = ?";
+
+            mCursor = sqLiteDatabase.rawQuery(query, new String[] {loginMail, loginPass});
+
+            if(mCursor.getCount() <= 0){
+                mCursor.close();
+                sqLiteDatabase.close();
+                return null;
+            }else {
+                mCursor.moveToFirst();
+                loginAcc = new BankAccount(mCursor.getString(mCursor.getColumnIndex(Database.MyDbHelper.COL_FIRSTNAME)),
+                        mCursor.getString(mCursor.getColumnIndex(Database.MyDbHelper.COL_LASTNAME)),
+                        mCursor.getString(mCursor.getColumnIndex(Database.MyDbHelper.COL_EMAIL)),
+                        mCursor.getString(mCursor.getColumnIndex(Database.MyDbHelper.COL_PASS)),
+                        mCursor.getDouble(mCursor.getColumnIndex(Database.MyDbHelper.COL_BALANCE)));
+                mCursor.close();
+                sqLiteDatabase.close();
+                return loginAcc;
+            }
         }
     }
 }

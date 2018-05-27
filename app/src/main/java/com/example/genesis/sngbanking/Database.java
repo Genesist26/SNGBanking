@@ -104,6 +104,7 @@ public class Database {
                         mCursor.getString(mCursor.getColumnIndex(Database.MyDbHelper.COL_LASTNAME)),
                         mCursor.getString(mCursor.getColumnIndex(Database.MyDbHelper.COL_EMAIL)),
                         mCursor.getString(mCursor.getColumnIndex(Database.MyDbHelper.COL_PASS)),
+                        mCursor.getString(mCursor.getColumnIndex(Database.MyDbHelper.COL_ACCNUMBER)),
                         mCursor.getDouble(mCursor.getColumnIndex(Database.MyDbHelper.COL_BALANCE)));
                 mCursor.close();
                 sqLiteDatabase.close();

@@ -17,12 +17,11 @@ public class MainActivity extends AppCompatActivity {
 
     private Button btLogin, btSignup;
     private EditText etEmail, etPass;
-    public static Account aList;
     SQLiteDatabase mDb;
-    Database.MyDbHelper mHelper;
     Cursor mCursor;
     BankAccount loginAcc;
     SharedPreferences prefs = null;
+    Database.MyDbHelper mHelper = new Database.MyDbHelper(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         etEmail = (EditText) findViewById(R.id.etEmail);
         etPass  = (EditText) findViewById(R.id.etPass);
 
-        firstUse();
+        firstRun();
 
     }
 
@@ -75,7 +74,6 @@ public class MainActivity extends AppCompatActivity {
             if (mCursor.moveToFirst()) {
                 loginAcc = new BankAccount(mCursor.getString(mCursor.getColumnIndex(Database.MyDbHelper.COL_FIRSTNAME)),
                         mCursor.getString(mCursor.getColumnIndex(Database.MyDbHelper.COL_LASTNAME)),
-                        mCursor.getInt(mCursor.getColumnIndex(Database.MyDbHelper.COL_ACCNUMBER)),
                         mCursor.getString(mCursor.getColumnIndex(Database.MyDbHelper.COL_EMAIL)),
                         mCursor.getString(mCursor.getColumnIndex(Database.MyDbHelper.COL_PASS)),
                         mCursor.getDouble(mCursor.getColumnIndex(Database.MyDbHelper.COL_BALANCE)));
@@ -100,18 +98,23 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void firstUse() {
-        Database.MyDbHelper mHelper = new Database.MyDbHelper(this);
+    public void firstRun() {
 
+        long lastAccNumber = 4823521350L;
         // check first use
         if (prefs.getBoolean("firstrun", true)) {
-/*
+
+            BankAccount a = new BankAccount("test","test","test","test",0);
+            BankAccount b = new BankAccount("Somsak","Binarwaeloh","somsakwp8@gmail.com","1234",0);
+            BankAccount c = new BankAccount("Chantapat","Sopontanasiri","sunsun@gmail.com","1234",0);
+            BankAccount d = new BankAccount("Nalina","Witee","nalina@gmail.com","1234",0);
             //add sample accout
-            mHelper.addAcc("test","test","test","test");
-            mHelper.addAcc("Somsak","Binarwaeloh","somsakwp8@gmail.com","1234");
-            mHelper.addAcc("Chantapat","Sopontanasiri","sunsun@gmail.com","1234");
-            mHelper.addAcc("Nalina","Witee","nalina@gmail.com","1234");
-*/
+            mHelper.addAcc(a);
+            mHelper.addAcc(b);
+            mHelper.addAcc(c);
+            mHelper.addAcc(d);
+
+
             prefs.edit().putBoolean("firstrun", false).commit();
         }
     }

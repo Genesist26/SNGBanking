@@ -11,12 +11,13 @@ public class BankAccount implements Serializable {
     private String email;
     private String password;
     private double balance;
-    private int accountNumber;
+    private long accountNumber;
 
-    private static int lastAccountNumber = 0;
+    private static long lastAccountNumber = 4823521350L;
 
-    public BankAccount(String fName, String lName, int accountNumber,
-                       String email, String password, double intialBalance) {
+    public BankAccount(String fName, String lName,
+                       String email, String password,
+                       double intialBalance) {
         this.fName = fName;
         this.lName = lName;
         this.accountNumber = accountNumber;
@@ -25,8 +26,6 @@ public class BankAccount implements Serializable {
 
         balance = intialBalance;
 
-        accountNumber = lastAccountNumber + 1;
-        lastAccountNumber = accountNumber;
     }
 
 
@@ -44,16 +43,12 @@ public class BankAccount implements Serializable {
         }
     }
 
-    public int getNumber() {
+    public long getAccNumber() {
         return accountNumber;
     }
 
     public double getBalance() {
         return balance;
-    }
-
-    public static int getLastAccountNumber() {
-        return lastAccountNumber;
     }
 
     public String transfer(BankAccount a, BankAccount b, double amount) {
@@ -63,6 +58,7 @@ public class BankAccount implements Serializable {
             return "Wrong Account Number!";
 
         // check b is exists
+        // add code here
 
         a.withdraw(amount);
         b.deposit(amount);
@@ -84,7 +80,7 @@ public class BankAccount implements Serializable {
     }
 
     public String getAccoutNumber() {
-        return Integer.toString(accountNumber);
+        return Long.toString(accountNumber);
     }
 
     public String getfName() {

@@ -30,16 +30,6 @@ public class Database {
                     + COL_ACCNUMBER + " TEXT, " + COL_EMAIL + " TEXT, "
                     + COL_PASS + " TEXT, " + COL_FIRSTNAME + " TEXT, "
                     + COL_LASTNAME + " TEXT, " + COL_BALANCE + " REAL);");
-
-            db.execSQL("INSERT INTO " + TABLE_NAME + " (" + COL_ACCNUMBER + ", " + COL_EMAIL + ", " + COL_PASS
-                    + ", " + COL_FIRSTNAME + ", " + COL_LASTNAME + ", " + COL_BALANCE + ") VALUES ('1', 'sunsun@gmail.com', " +
-                    "'1234', 'Chantapat', 'Sopontanasiri', 3000);");
-            db.execSQL("INSERT INTO " + TABLE_NAME + " ("  + COL_ACCNUMBER + ", " + COL_EMAIL + ", " + COL_PASS
-                    + ", " + COL_FIRSTNAME + ", " + COL_LASTNAME + ", " + COL_BALANCE + ") VALUES ('2', 'gene@gmail.com', " +
-                    "'1234', 'Gene', 'Somsak', 3000);");
-            db.execSQL("INSERT INTO " + TABLE_NAME + " (" + COL_ACCNUMBER + ", "  + COL_EMAIL + ", " + COL_PASS
-                    + ", " + COL_FIRSTNAME + ", " + COL_LASTNAME + ", " + COL_BALANCE + ") VALUES ('3', 'nalina@gmail.com', " +
-                    "'1234', 'nalina', 'vitee', 5000);");
         }
 
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -83,7 +73,7 @@ public class Database {
             sqLiteDatabase.close();
         }
 
-        public void deleteAvv(String accNO) {
+        public void deleteAcc(String accNO) {
 
             sqLiteDatabase = this.getWritableDatabase();
 

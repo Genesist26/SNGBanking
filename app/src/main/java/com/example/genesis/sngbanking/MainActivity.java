@@ -105,13 +105,13 @@ public class MainActivity extends AppCompatActivity {
 
         // check first use
         if (prefs.getBoolean("firstrun", true)) {
-
+/*
             //add sample accout
             mHelper.addAcc("test","test","test","test");
             mHelper.addAcc("Somsak","Binarwaeloh","somsakwp8@gmail.com","1234");
             mHelper.addAcc("Chantapat","Sopontanasiri","sunsun@gmail.com","1234");
             mHelper.addAcc("Nalina","Witee","nalina@gmail.com","1234");
-
+*/
             prefs.edit().putBoolean("firstrun", false).commit();
         }
     }

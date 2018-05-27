@@ -8,11 +8,13 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MenuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -53,7 +55,6 @@ public class MenuActivity extends AppCompatActivity
 
         tvCustName.setText(loginAcc.getFullName());
         tvCustAccNum.setText(loginAcc.getAccoutNumber());
-        tvCustBalance.setText(Double.toString(loginAcc.getBalance()));
 
     }
 
@@ -118,5 +119,20 @@ public class MenuActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        Double re = loginAcc.getBalance();
+        tvCustBalance.setText(""+re);
+        //Toast.makeText(this,"Refresh balance = ",Toast.LENGTH_SHORT);
+    }
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+        Log.i("sng", "MenuActivity onPause");
     }
 }

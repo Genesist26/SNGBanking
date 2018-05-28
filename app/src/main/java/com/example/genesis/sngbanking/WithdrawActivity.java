@@ -45,7 +45,7 @@ public class WithdrawActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         etAmount = (EditText) findViewById(R.id.etAmount);
-        tvfname  = (TextView) findViewById(R.id.tvfname);
+        tvfname  = (TextView) findViewById(R.id.tvName);
         tvlname  = (TextView) findViewById(R.id.tvlname);
         tvAccNum = (TextView) findViewById(R.id.tvAccNum);
 

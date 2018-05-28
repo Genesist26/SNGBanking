@@ -11,9 +11,10 @@
     <string name="botton_withdraw">Withdraw</string>
     <string name="botton_balance">Balance</string>
     <string name="botton_logout">LOGOUT</string>
-    <string name="firstname">nalina</string>
-    <string name="lastname">withee</string>
-    <string name="account_number">123-456789</string>
+    <string name="firstname">John</string>
+    <string name="lastname">Wick</string>
+    <string name="fullName">John Wick</string>
+    <string name="account_number">012-345-6789</string>
     <string name="balance">1000.00</string>
     <string name="history">History</string>
     <string-array name="month">

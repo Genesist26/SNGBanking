@@ -18,7 +18,7 @@ public class DepositActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
 
     private EditText etAmount;
-    private TextView tvfname, tvlname, tvAccNumber;
+    private TextView tvName, tvAccNumber;
     BankAccount loginAcc;
     private Database.MyDbHelper mHelper = new Database.MyDbHelper(this);
 
@@ -42,13 +42,11 @@ public class DepositActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        tvfname = (TextView) findViewById(R.id.tvfname);
-        tvlname = (TextView) findViewById(R.id.tvlname);
+        tvName = (TextView) findViewById(R.id.tvName);
         tvAccNumber = (TextView) findViewById(R.id.tvAccNumber);
         etAmount = (EditText) findViewById(R.id.etAmount);
 
-        tvfname.setText(loginAcc.getfName());
-        tvlname.setText(loginAcc.getlName());
+        tvName.setText(loginAcc.getFullName());
         tvAccNumber.setText(loginAcc.getAccoutNumber());
 
 

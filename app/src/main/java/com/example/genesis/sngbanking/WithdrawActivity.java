@@ -57,20 +57,27 @@ public class WithdrawActivity extends AppCompatActivity
     }
 
     public void onClickSubmit(View v) {
-        double amount = Double.parseDouble(etAmount.getText().toString());
-        boolean res = loginAcc.withdraw(amount);
-        if(res == true){
-            mHelper.updateAcc(loginAcc);
-            Toast.makeText(getApplicationContext(), "Completed", Toast.LENGTH_SHORT).show();
-            Log.i("sng","Withdraw: "+amount+", newBalanc="+loginAcc.getBalance());
-            finish();
-            Intent intent = new Intent(this, MenuActivity.class);
-            intent.putExtra("loginAcc",loginAcc);
-            startActivity(intent);
+        String getAmount = etAmount.getText().toString();
+        if(!getAmount.isEmpty()){
+            double amount = Double.parseDouble(etAmount.getText().toString());
+            boolean res = loginAcc.withdraw(amount);
+            if(res == true){
+                mHelper.updateAcc(loginAcc);
+                Toast.makeText(getApplicationContext(), "Transaction Completed", Toast.LENGTH_SHORT).show();
+                Log.i("sng","Withdraw: "+amount+", newBalanc="+loginAcc.getBalance());
+                finish();
+                Intent intent = new Intent(this, MenuActivity.class);
+                intent.putExtra("loginAcc",loginAcc);
+                startActivity(intent);
+            }
+            else {
+                Toast.makeText(getApplicationContext(), "Insufficient Funds!!!", Toast.LENGTH_SHORT).show();
+            }
         }
-        else {
-            Toast.makeText(getApplicationContext(), "Insufficient Funds!!!", Toast.LENGTH_SHORT).show();
+        else{
+            Toast.makeText(getApplicationContext(), "Please enter amount", Toast.LENGTH_SHORT).show();
         }
+
     }
 
     @SuppressWarnings("StatementWithEmptyBody")

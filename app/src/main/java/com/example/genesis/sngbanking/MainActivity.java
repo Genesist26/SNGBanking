@@ -13,6 +13,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class MainActivity extends AppCompatActivity {
 
     private Button btLogin, btSignup;
@@ -46,6 +49,9 @@ public class MainActivity extends AppCompatActivity {
 
         if(loginMail.isEmpty() || loginPass.isEmpty()){
             Toast.makeText(this, "Empty email or password", Toast.LENGTH_SHORT).show();
+        }
+        else if(!isEmailValid(loginMail)) {
+            Toast.makeText(this, "Email is invalid", Toast.LENGTH_SHORT).show();
         }
         else {
             mHelper = new Database.MyDbHelper(this);
@@ -85,11 +91,11 @@ public class MainActivity extends AppCompatActivity {
             Log.i("sng","user=Nalina    pass=Witee");
             Log.i("sng","----------------------------------");
 
-            BankAccount t1 = new BankAccount("test","test","test","test",0);
-            BankAccount t2 = new BankAccount("test2","test2","test2","test",0);
-            BankAccount t3 = new BankAccount("Somsak","Binarwaeloh","somsakwp8@gmail.com","1234",0);
-            BankAccount t4 = new BankAccount("Chantapat","Sopontanasiri","sunsun@gmail.com","1234",0);
-            BankAccount t5 = new BankAccount("Nalina","Witee","nalina@gmail.com","1234",0);
+            BankAccount t1 = new BankAccount("test","test","test@test.com","test",0);
+            BankAccount t2 = new BankAccount("test2","test2","test2@test.com","test",0);
+            BankAccount t3 = new BankAccount("Somsak","Binarwaeloh","gene@test.com","test",0);
+            BankAccount t4 = new BankAccount("Chantapat","Sopontanasiri","sunsun@test.com","test",0);
+            BankAccount t5 = new BankAccount("Nalina","Witee","nalina@test.com","test",0);
 
             //add sample accout
             mHelper.addAcc(t1);
@@ -101,5 +107,13 @@ public class MainActivity extends AppCompatActivity {
             prefs.edit().putBoolean("firstrun", false).commit();
         }
     }
+
+    public static boolean isEmailValid(String email) {
+        String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
+
 }
 

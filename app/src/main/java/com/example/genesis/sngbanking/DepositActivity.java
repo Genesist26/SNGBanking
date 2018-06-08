@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class DepositActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
@@ -53,14 +54,22 @@ public class DepositActivity extends AppCompatActivity
     }
 
     public void onClickSubmit(View v) {
-        double amount = Double.parseDouble(etAmount.getText().toString());
-        loginAcc.deposit(amount);
-        mHelper.updateAcc(loginAcc);
-        Log.i("sng","Deposit: "+amount+", newBalanc="+loginAcc.getBalance());
-        finish();
-        Intent intent = new Intent(this, MenuActivity.class);
-        intent.putExtra("loginAcc",loginAcc);
-        startActivity(intent);
+        String getAmount = etAmount.getText().toString();
+        if(!getAmount.isEmpty()){
+            double amount = Double.parseDouble(getAmount);
+            loginAcc.deposit(amount);
+            mHelper.updateAcc(loginAcc);
+            Toast.makeText(getApplicationContext(), "Transaction Completed", Toast.LENGTH_SHORT).show();
+            Log.i("sng","Deposit: "+amount+", newBalanc="+loginAcc.getBalance());
+            finish();
+            Intent intent = new Intent(this, MenuActivity.class);
+            intent.putExtra("loginAcc",loginAcc);
+            startActivity(intent);
+        }
+        else{
+            Toast.makeText(getApplicationContext(), "Please enter amount", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     @SuppressWarnings("StatementWithEmptyBody")

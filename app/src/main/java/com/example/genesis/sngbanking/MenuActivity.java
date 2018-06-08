@@ -43,11 +43,9 @@ public class MenuActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        Spinner mySpinner = (Spinner) findViewById(R.id.spinner);
         ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(MenuActivity.this,
                 android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.month));
         myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mySpinner.setAdapter(myAdapter);
 
         tvCustName = (TextView) findViewById(R.id.tvCustName);
         tvCustAccNum = (TextView) findViewById(R.id.tvCustAccNum);
@@ -130,6 +128,7 @@ public class MenuActivity extends AppCompatActivity
         Double re = loginAcc.getBalance();
         tvCustBalance.setText(""+re);
         //Toast.makeText(this,"Refresh balance = ",Toast.LENGTH_SHORT);
+
     }
 
     @Override

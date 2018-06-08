@@ -42,7 +42,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
-    <string name="deposit"/>
+    <string name="deposit" />
     <string name="cencle">CANCLE</string>
     <string name="confirm">COMFIRM</string>
 

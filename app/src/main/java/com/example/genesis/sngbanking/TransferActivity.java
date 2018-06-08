@@ -44,32 +44,6 @@ public class TransferActivity extends AppCompatActivity
         etAmount = (EditText) findViewById(R.id.etAmount);
     }
 
-    public void onClickSubmit(View v) {
-        BankAccount destAcc;
-        String destAccNumber = etToAcc.getText().toString();
-        Double amount = Double.parseDouble(etAmount.getText().toString());
-
-        mHelper = new Database.MyDbHelper(this);
-        destAcc = mHelper.getBankAcc(destAccNumber);
-
-        if(destAcc == null){
-            Toast.makeText(this, "Eror: Destination account not exists!",Toast.LENGTH_SHORT).show();
-        }
-        else {
-            if(!loginAcc.transfer(destAcc,amount)){
-                Toast.makeText(this, "Eror: Insufficient funds ",Toast.LENGTH_SHORT).show();
-            } else {
-                mHelper.updateAcc(loginAcc);
-                mHelper.updateAcc(destAcc);
-                Log.i("sng","transfer: "+amount+" to: "+destAccNumber+", newBalanc="+loginAcc.getBalance());
-                finish();
-                Intent intent = new Intent(this, MenuActivity.class);
-                intent.putExtra("loginAcc",loginAcc);
-                startActivity(intent);
-            }
-        }
-    }
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -107,6 +81,60 @@ public class TransferActivity extends AppCompatActivity
         Log.i("sng","Transfer Activity");
     }
 
+    /*
+    public void onClickSubmit(View v) {
+        BankAccount destAcc;
+        String destAccNumber = etToAcc.getText().toString();
+        Double amount = Double.parseDouble(etAmount.getText().toString());
+
+        mHelper = new Database.MyDbHelper(this);
+        destAcc = mHelper.getBankAcc(destAccNumber);
+
+        if(destAcc == null){
+            Toast.makeText(this, "Eror: Destination account not exists!",Toast.LENGTH_SHORT).show();
+        }
+        else {
+            if(!loginAcc.transfer(destAcc,amount)){
+                Toast.makeText(this, "Eror: Insufficient funds ",Toast.LENGTH_SHORT).show();
+            } else {
+                mHelper.updateAcc(loginAcc);
+                mHelper.updateAcc(destAcc);
+                Log.i("sng","transfer: "+amount+" to: "+destAccNumber+", newBalanc="+loginAcc.getBalance());
+                finish();
+                Intent intent = new Intent(this, MenuActivity.class);
+                intent.putExtra("loginAcc",loginAcc);
+                startActivity(intent);
+            }
+        }
+    }
+*/
+
+    public void onClickSubmit(View v) {
+        BankAccount destAcc;
+        String destAccNumber = etToAcc.getText().toString();
+        Double amount = Double.parseDouble(etAmount.getText().toString());
+
+        mHelper = new Database.MyDbHelper(this);
+        destAcc = mHelper.getBankAcc(destAccNumber);
+
+        if(destAcc == null || destAccNumber.equals(Long.toString(loginAcc.getAccNumber()))){
+            Toast.makeText(this, "Eror: Destination account invalid!",Toast.LENGTH_SHORT).show();
+        }
+        else {
+            if(loginAcc.getBalance() < amount){
+                Toast.makeText(this, "Eror: Insufficient funds ",Toast.LENGTH_SHORT).show();
+            } else {
+                finish();
+                Intent intent = new Intent(this, TransferConfirmationActivity.class);
+                intent.putExtra("loginAcc",loginAcc);
+                intent.putExtra("destAcc",destAcc);
+                intent.putExtra("amount",amount);
+                startActivity(intent);
+
+                Log.i("sng","need confirm transfering: "+amount+" to: "+destAccNumber);
+            }
+        }
+    }
     public void onClickCancle(View v) {
         super.onBackPressed();
         Intent intent = new Intent(this, MenuActivity.class);

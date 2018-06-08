@@ -69,33 +69,35 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void firstRun() {
-        Log.i("sng","detected firstRun");
-        Log.i("sng","----------------------------------");
-        Log.i("sng","created sample account");
-        Log.i("sng","user=test      pass=test");
-        Log.i("sng","user=test2     pass=test");
-        Log.i("sng","user=Somsak    pass=Binarwaeloh");
-        Log.i("sng","user=Chantapat pass=Sopontanasiri");
-        Log.i("sng","user=Nalina    pass=Witee");
-        Log.i("sng","----------------------------------");
+
 
         long lastAccNumber = 4823521350L;
         // check first use
         if (prefs.getBoolean("firstrun", true)) {
 
-            BankAccount a = new BankAccount("test","test","test","test",0);
-            BankAccount a2 = new BankAccount("test2","test2","test2","test",0);
-            BankAccount b = new BankAccount("Somsak","Binarwaeloh","somsakwp8@gmail.com","1234",0);
-            BankAccount c = new BankAccount("Chantapat","Sopontanasiri","sunsun@gmail.com","1234",0);
-            BankAccount d = new BankAccount("Nalina","Witee","nalina@gmail.com","1234",0);
-            //add sample accout
-            mHelper.addAcc(a);
-            mHelper.addAcc(a2);
-            mHelper.addAcc(b);
-            mHelper.addAcc(c);
-            mHelper.addAcc(d);
+            Log.i("sng","detected firstRun");
+            Log.i("sng","----------------------------------");
+            Log.i("sng","created sample account");
+            Log.i("sng","user=test      pass=test");
+            Log.i("sng","user=test2     pass=test");
+            Log.i("sng","user=Somsak    pass=Binarwaeloh");
+            Log.i("sng","user=Chantapat pass=Sopontanasiri");
+            Log.i("sng","user=Nalina    pass=Witee");
+            Log.i("sng","----------------------------------");
 
-//4823521352
+            BankAccount t1 = new BankAccount("test","test","test","test",0);
+            BankAccount t2 = new BankAccount("test2","test2","test2","test",0);
+            BankAccount t3 = new BankAccount("Somsak","Binarwaeloh","somsakwp8@gmail.com","1234",0);
+            BankAccount t4 = new BankAccount("Chantapat","Sopontanasiri","sunsun@gmail.com","1234",0);
+            BankAccount t5 = new BankAccount("Nalina","Witee","nalina@gmail.com","1234",0);
+
+            //add sample accout
+            mHelper.addAcc(t1);
+            mHelper.addAcc(t2);
+            mHelper.addAcc(t3);
+            mHelper.addAcc(t4);
+            mHelper.addAcc(t5);
+
             prefs.edit().putBoolean("firstrun", false).commit();
         }
     }

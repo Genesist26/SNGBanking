@@ -110,4 +110,11 @@ public class WithdrawActivity extends AppCompatActivity
         Log.i("sng","Withdraw Activity");
     }
 
+    public void onClickCancle(View v) {
+        super.onBackPressed();
+        Intent intent = new Intent(this, MenuActivity.class);
+        intent.putExtra("loginAcc",loginAcc);
+        startActivity(intent);
+    }
+
 }

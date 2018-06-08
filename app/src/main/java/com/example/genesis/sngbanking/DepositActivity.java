@@ -99,4 +99,13 @@ public class DepositActivity extends AppCompatActivity
         super.onResume();
         Log.i("sng","Deposit Activity");
     }
+
+
+    public void onClickCancle(View v) {
+        super.onBackPressed();
+        Intent intent = new Intent(this, MenuActivity.class);
+        intent.putExtra("loginAcc",loginAcc);
+        startActivity(intent);
+    }
+
 }

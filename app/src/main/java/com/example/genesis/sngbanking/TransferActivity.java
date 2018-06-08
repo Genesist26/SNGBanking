@@ -106,4 +106,11 @@ public class TransferActivity extends AppCompatActivity
         super.onResume();
         Log.i("sng","Transfer Activity");
     }
+
+    public void onClickCancle(View v) {
+        super.onBackPressed();
+        Intent intent = new Intent(this, MenuActivity.class);
+        intent.putExtra("loginAcc",loginAcc);
+        startActivity(intent);
+    }
 }

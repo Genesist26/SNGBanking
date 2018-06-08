@@ -16,6 +16,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="40dp"
+        android:textStyle="normal|bold"
         android:text="DEPOSIT"
         android:textColor="@color/colorAccent"
         android:textSize="25sp"
@@ -58,14 +59,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="40dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="80dp"
         android:background="@drawable/buttonshape"
         android:onClick="onClickSubmit"
-        android:text="SUBMIT"
+        android:text="@string/cencle"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btSubmit2"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:layout_marginEnd="80dp"
+        android:background="@drawable/buttonshape"
+        android:onClick="onClickSubmit"
+        android:text="@string/confirm"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/textView13"

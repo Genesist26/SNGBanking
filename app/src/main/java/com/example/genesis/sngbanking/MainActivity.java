@@ -75,23 +75,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void firstRun() {
-
-
-        long lastAccNumber = 4823521350L;
         // check first use
         if (prefs.getBoolean("firstrun", true)) {
 
             Log.i("sng","detected firstRun");
             Log.i("sng","----------------------------------");
             Log.i("sng","created sample account");
-            Log.i("sng","user=test      pass=test");
+            Log.i("sng","user=test1     pass=test");
             Log.i("sng","user=test2     pass=test");
-            Log.i("sng","user=Somsak    pass=Binarwaeloh");
-            Log.i("sng","user=Chantapat pass=Sopontanasiri");
-            Log.i("sng","user=Nalina    pass=Witee");
+            Log.i("sng","user=test3     pass=test");
             Log.i("sng","----------------------------------");
 
-            BankAccount t1 = new BankAccount("test1","test1","test@test.com","test",0);
+            BankAccount t1 = new BankAccount("test1","test1","test1@test.com","test",0);
             BankAccount t2 = new BankAccount("test2","test2","test2@test.com","test",0);
             BankAccount t3 = new BankAccount("test3","test3","test3@test.com","test",0);
 

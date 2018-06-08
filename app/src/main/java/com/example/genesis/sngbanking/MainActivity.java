@@ -53,6 +53,9 @@ public class MainActivity extends AppCompatActivity {
         else if(!isEmailValid(loginMail)) {
             Toast.makeText(this, "Email is invalid", Toast.LENGTH_SHORT).show();
         }
+        else if(loginPass.length() < 8){
+            Toast.makeText(this, "Passwords must be at least 8 characters", Toast.LENGTH_SHORT).show();
+        }
         else {
             mHelper = new Database.MyDbHelper(this);
             loginAcc = mHelper.getBankAcc(loginMail, loginPass);
@@ -81,14 +84,14 @@ public class MainActivity extends AppCompatActivity {
             Log.i("sng","detected firstRun");
             Log.i("sng","----------------------------------");
             Log.i("sng","created sample account");
-            Log.i("sng","user=test1     pass=test");
-            Log.i("sng","user=test2     pass=test");
-            Log.i("sng","user=test3     pass=test");
+            Log.i("sng","user=test1     pass=testtest");
+            Log.i("sng","user=test2     pass=testtest");
+            Log.i("sng","user=test3     pass=testtest");
             Log.i("sng","----------------------------------");
 
-            BankAccount t1 = new BankAccount("test1","test1","test1@test.com","test",0);
-            BankAccount t2 = new BankAccount("test2","test2","test2@test.com","test",0);
-            BankAccount t3 = new BankAccount("test3","test3","test3@test.com","test",0);
+            BankAccount t1 = new BankAccount("test1","test1","test1@test.com","testtest",0);
+            BankAccount t2 = new BankAccount("test2","test2","test2@test.com","testtest",0);
+            BankAccount t3 = new BankAccount("test3","test3","test3@test.com","testtest",0);
 
             //add sample accout
             mHelper.addAcc(t1);

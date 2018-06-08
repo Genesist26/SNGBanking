@@ -44,6 +44,9 @@ public class RegisterActivity extends AppCompatActivity {
         else if(!isEmailValid(email)){
             Toast.makeText(this, "Email is invalid", Toast.LENGTH_SHORT).show();
         }
+        else if(pass.length() < 8) {
+            Toast.makeText(this, "Passwords must be at least 8 characters", Toast.LENGTH_SHORT).show();
+        }
         else if(pass.equals(passConf)) {
             Database.MyDbHelper mHelper = new Database.MyDbHelper(this);
             anAcc = new BankAccount(fname, lname, email, pass, 0);

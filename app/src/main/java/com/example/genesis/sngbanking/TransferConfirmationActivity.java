@@ -4,13 +4,10 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.EditText;
+import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.Button;
 
-import junit.framework.Test;
-
-import org.w3c.dom.Text;
 
 public class TransferConfirmationActivity extends AppCompatActivity {
 
@@ -39,6 +36,22 @@ public class TransferConfirmationActivity extends AppCompatActivity {
         tvDestName.setText(destAcc.getFullName());
         tvDestAcc.setText(destAcc.getAccoutNumber());
         tvAmount.setText(Double.toString(amount));
+
+        Button btConfirm = (Button) findViewById(R.id.btConfirm);
+        btConfirm.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                onClickConfirm();
+            }
+        });
+
+        Button btCancle = (Button) findViewById(R.id.btCancle);
+
+        btCancle.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                onClickCancle();
+            }
+        });
+
 
     }
 

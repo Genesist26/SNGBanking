@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText etEmail, etPass;
     SQLiteDatabase mDb;
     Cursor mCursor;
-    BankAccount loginAcc;
+    Authen auth;
     SharedPreferences prefs = null;
     Database.MyDbHelper mHelper = new Database.MyDbHelper(this);
 
@@ -58,13 +58,15 @@ public class MainActivity extends AppCompatActivity {
         }
         else {
             mHelper = new Database.MyDbHelper(this);
-            loginAcc = mHelper.getBankAcc(loginMail, loginPass);
+            auth = mHelper.getAuthen(loginMail, loginPass);
 
             // is record exists
-            if (loginAcc == null)
+            if (auth == null)
                 Toast.makeText(this, "Email or Password incorrect", Toast.LENGTH_SHORT).show();
             else {
-                Log.i("sng", "Login success user=["+loginAcc.getEmail()+"], acc=["+loginAcc.getAccountNumber()+"]");
+                Log.i("sng", "Login success user=["+auth.getEmail()+"], acc=["+auth.getAccountNumber()+"]");
+                BankAccount loginAcc = mHelper.getBankAcc(auth.getAccountNumber());
+
                 Intent intent = new Intent(this, MenuActivity.class);
                 intent.putExtra("loginAcc", loginAcc);
                 startActivity(intent);
@@ -89,14 +91,14 @@ public class MainActivity extends AppCompatActivity {
             Log.i("sng","user=test3     pass=testtest");
             Log.i("sng","----------------------------------");
 
-            BankAccount t1 = new BankAccount("test1","test1","test1@test.com","testtest",0);
-            BankAccount t2 = new BankAccount("test2","test2","test2@test.com","testtest",0);
-            BankAccount t3 = new BankAccount("test3","test3","test3@test.com","testtest",0);
+//            BankAccount t1 = new BankAccount("test1","test1","test1@test.com","testtest",0);
+//            BankAccount t2 = new BankAccount("test2","test2","test2@test.com","testtest",0);
+//            BankAccount t3 = new BankAccount("test3","test3","test3@test.com","testtest",0);
 
             //add sample accout
-            mHelper.addAcc(t1);
-            mHelper.addAcc(t2);
-            mHelper.addAcc(t3);
+//            mHelper.addAcc(t1);
+//            mHelper.addAcc(t2);
+//            mHelper.addAcc(t3);
 
 
             prefs.edit().putBoolean("firstrun", false).commit();

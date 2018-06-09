@@ -63,7 +63,7 @@ public class MenuActivity extends AppCompatActivity
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
-            Log.i("sng", "Logout success user=["+loginAcc.getEmail()+"]");
+            Log.i("sng", "Logout success user=["+loginAcc.getFullName()+"]");
         }
     }
 
@@ -113,7 +113,7 @@ public class MenuActivity extends AppCompatActivity
             startActivity(intent);
         } else if (id == R.id.nav_logout) {
             finish();
-            Log.i("sng", "Logout success, user=["+loginAcc.getEmail()+"]");
+            Log.i("sng", "Logout success, user=["+loginAcc.getFullName()+"]");
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

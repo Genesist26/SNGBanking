@@ -14,18 +14,12 @@ public class Database {
         private static final int DB_VERSION = 1;
         public static final String TABLE_ACC = "acc";
         public static final String TABLE_AUTH = "authen";
-        public static final String TABLE_TRANS = "trans";
         public static final String COL_ACCNUMBER = "accNumber";
-        public static final String COL_MYACCNUMBER = "myAccNumber";
-        public static final String COL_YOURACCNUMBER = "yourAccNumber";
         public static final String COL_EMAIL = "email";
         public static final String COL_PASS = "pin";
         public static final String COL_FIRSTNAME = "firstName";
         public static final String COL_LASTNAME = "surname";
         public static final String COL_BALANCE = "balance";
-        public static final String COL_AMOUNT = "amount";
-        public static final String COL_TYPE = "type";
-        public static final String COL_DATE = "date";
         private SQLiteDatabase sqLiteDatabase;
 
 
@@ -35,8 +29,7 @@ public class Database {
 
         public void onCreate(SQLiteDatabase db) { ;
             db.execSQL("CREATE TABLE " + TABLE_ACC +" ( _id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                    + COL_ACCNUMBER + " TEXT, " + COL_EMAIL + " TEXT, "
-                    + COL_PASS + " TEXT, " + COL_FIRSTNAME + " TEXT, "
+                    + COL_ACCNUMBER + " TEXT, " + COL_FIRSTNAME + " TEXT, "
                     + COL_LASTNAME + " TEXT, " + COL_BALANCE + " REAL);");
             // Bank account
             // accNO
@@ -63,8 +56,6 @@ public class Database {
 
             ContentValues values = new ContentValues();
             values.put(COL_ACCNUMBER, ba.getAccountNumber());
-            values.put(COL_EMAIL, ba.getEmail());
-            values.put(COL_PASS, ba.getPassword());
             values.put(COL_FIRSTNAME, ba.getfName());
             values.put(COL_LASTNAME, ba.getlName());
             values.put(COL_BALANCE, ba.getBalance());
@@ -93,8 +84,6 @@ public class Database {
 
             ContentValues values = new ContentValues();
             values.put(COL_ACCNUMBER, anAcc.getAccountNumber());
-            values.put(COL_EMAIL, anAcc.getEmail());
-            values.put(COL_PASS, anAcc.getPassword());
             values.put(COL_FIRSTNAME, anAcc.getfName());
             values.put(COL_LASTNAME, anAcc.getlName());
             values.put(COL_BALANCE, anAcc.getBalance());
@@ -132,8 +121,6 @@ public class Database {
                 mCursor.moveToFirst();
                 loginAcc = new BankAccount(mCursor.getString(mCursor.getColumnIndex(Database.MyDbHelper.COL_FIRSTNAME)),
                         mCursor.getString(mCursor.getColumnIndex(Database.MyDbHelper.COL_LASTNAME)),
-                        mCursor.getString(mCursor.getColumnIndex(Database.MyDbHelper.COL_EMAIL)),
-                        mCursor.getString(mCursor.getColumnIndex(Database.MyDbHelper.COL_PASS)),
                         mCursor.getString(mCursor.getColumnIndex(Database.MyDbHelper.COL_ACCNUMBER)),
                         mCursor.getDouble(mCursor.getColumnIndex(Database.MyDbHelper.COL_BALANCE)));
                 mCursor.close();
@@ -162,13 +149,37 @@ public class Database {
                 mCursor.moveToFirst();
                 destAcc = new BankAccount(mCursor.getString(mCursor.getColumnIndex(Database.MyDbHelper.COL_FIRSTNAME)),
                         mCursor.getString(mCursor.getColumnIndex(Database.MyDbHelper.COL_LASTNAME)),
-                        mCursor.getString(mCursor.getColumnIndex(Database.MyDbHelper.COL_EMAIL)),
-                        mCursor.getString(mCursor.getColumnIndex(Database.MyDbHelper.COL_PASS)),
                         mCursor.getString(mCursor.getColumnIndex(Database.MyDbHelper.COL_ACCNUMBER)),
                         mCursor.getDouble(mCursor.getColumnIndex(Database.MyDbHelper.COL_BALANCE)));
                 mCursor.close();
                 sqLiteDatabase.close();
                 return destAcc;
+            }
+        }
+
+        public Authen getAuthen(String loginMail, String loginPass){
+            Authen loginAuthen;
+            Cursor mCursor;
+            sqLiteDatabase  = this.getWritableDatabase();
+            String query = "SELECT *"+
+                    " FROM " + Database.MyDbHelper.TABLE_AUTH +
+                    " WHERE " + Database.MyDbHelper.COL_EMAIL + " = ? AND "
+                    + Database.MyDbHelper.COL_PASS  + " = ?";
+
+            mCursor = sqLiteDatabase.rawQuery(query, new String[] {loginMail, loginPass});
+
+            if(mCursor.getCount() <= 0){
+                mCursor.close();
+                sqLiteDatabase.close();
+                return null;
+            }else {
+                mCursor.moveToFirst();
+                loginAuthen = new Authen(mCursor.getString(mCursor.getColumnIndex(Database.MyDbHelper.COL_ACCNUMBER)),
+                        mCursor.getString(mCursor.getColumnIndex(Database.MyDbHelper.COL_EMAIL)),
+                        mCursor.getString(mCursor.getColumnIndex(Database.MyDbHelper.COL_PASS)));
+                mCursor.close();
+                sqLiteDatabase.close();
+                return loginAuthen;
             }
         }
     }

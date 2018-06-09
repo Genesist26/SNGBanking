@@ -50,7 +50,7 @@ public class RegisterActivity extends AppCompatActivity {
         }
         else if(pass.equals(passConf)) {
             Database.MyDbHelper mHelper = new Database.MyDbHelper(this);
-            anAcc = new BankAccount(fname, lname, email, pass, 0);
+            anAcc = new BankAccount(fname, lname, 0);
             Authen au = new Authen(anAcc.getAccountNumber(), email, pass);
             Log.i("Regis", anAcc.getAccountNumber() + " : " + anAcc.getFullName());
             Log.i("Regis", "authen : " + au.getAccountNumber());

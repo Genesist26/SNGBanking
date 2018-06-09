@@ -91,14 +91,20 @@ public class MainActivity extends AppCompatActivity {
             Log.i("sng","user=test3     pass=testtest");
             Log.i("sng","----------------------------------");
 
-//            BankAccount t1 = new BankAccount("test1","test1","test1@test.com","testtest",0);
-//            BankAccount t2 = new BankAccount("test2","test2","test2@test.com","testtest",0);
-//            BankAccount t3 = new BankAccount("test3","test3","test3@test.com","testtest",0);
+            BankAccount t1 = new BankAccount("test1","test1",0);
+            Authen tt1 = new Authen(t1.getAccountNumber(), "test1@test.com","testtest");
+            BankAccount t2 = new BankAccount("test2","test2",0);
+            Authen tt2 = new Authen(t2.getAccountNumber(), "test2@test.com","testtest");
+            BankAccount t3 = new BankAccount("test3","test3",0);
+            Authen tt3 = new Authen(t3.getAccountNumber(), "test3@test.com","testtest");
 
             //add sample accout
-//            mHelper.addAcc(t1);
-//            mHelper.addAcc(t2);
-//            mHelper.addAcc(t3);
+            mHelper.addAcc(t1);
+            mHelper.addAuthen(tt1);
+            mHelper.addAcc(t2);
+            mHelper.addAuthen(tt2);
+            mHelper.addAcc(t3);
+            mHelper.addAuthen(tt3);
 
 
             prefs.edit().putBoolean("firstrun", false).commit();

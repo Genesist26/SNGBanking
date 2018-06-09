@@ -52,7 +52,7 @@ public class MenuActivity extends AppCompatActivity
         tvCustBalance = (TextView) findViewById(R.id.tvCustBalance);
 
         tvCustName.setText(loginAcc.getFullName());
-        tvCustAccNum.setText(loginAcc.getAccoutNumber());
+        tvCustAccNum.setText(loginAcc.getAccountNumber());
 
     }
 

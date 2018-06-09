@@ -53,7 +53,7 @@ public class WithdrawActivity extends AppCompatActivity
 
         tvfname.setText(loginAcc.getfName());
         tvlname.setText(loginAcc.getlName());
-        tvAccNum.setText(loginAcc.getAccoutNumber());
+        tvAccNum.setText(loginAcc.getAccountNumber());
     }
 
     public void onClickSubmit(View v) {

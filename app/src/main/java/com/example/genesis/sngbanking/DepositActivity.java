@@ -48,7 +48,7 @@ public class DepositActivity extends AppCompatActivity
         etAmount = (EditText) findViewById(R.id.etAmount);
 
         tvName.setText(loginAcc.getFullName());
-        tvAccNumber.setText(loginAcc.getAccoutNumber());
+        tvAccNumber.setText(loginAcc.getAccountNumber());
 
 
     }

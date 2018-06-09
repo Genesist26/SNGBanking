@@ -32,9 +32,9 @@ public class TransferConfirmationActivity extends AppCompatActivity {
         tvAmount = (TextView) findViewById(R.id.tvAmount);
 
         tvName.setText(loginAcc.getFullName());
-        tvAcc.setText(loginAcc.getAccoutNumber());
+        tvAcc.setText(loginAcc.getAccountNumber());
         tvDestName.setText(destAcc.getFullName());
-        tvDestAcc.setText(destAcc.getAccoutNumber());
+        tvDestAcc.setText(destAcc.getAccountNumber());
         tvAmount.setText(Double.toString(amount));
 
         Button btConfirm = (Button) findViewById(R.id.btConfirm);
@@ -64,7 +64,7 @@ public class TransferConfirmationActivity extends AppCompatActivity {
         mHelper.updateAcc(loginAcc);
         mHelper.updateAcc(destAcc);
 
-        Log.i("sng","transfer: "+amount+" to: "+destAcc.getAccoutNumber()+", newBalanc="+loginAcc.getBalance());
+        Log.i("sng","transfer: "+amount+" to: "+destAcc.getAccountNumber()+", newBalanc="+loginAcc.getBalance());
 
         finish();
         Intent intent = new Intent(this, MenuActivity.class);

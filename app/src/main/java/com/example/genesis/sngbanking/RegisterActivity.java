@@ -2,6 +2,7 @@ package com.example.genesis.sngbanking;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -50,7 +51,11 @@ public class RegisterActivity extends AppCompatActivity {
         else if(pass.equals(passConf)) {
             Database.MyDbHelper mHelper = new Database.MyDbHelper(this);
             anAcc = new BankAccount(fname, lname, email, pass, 0);
+            Authen au = new Authen(anAcc.getAccountNumber(), email, pass);
+            Log.i("Regis", anAcc.getAccountNumber() + " : " + anAcc.getFullName());
+            Log.i("Regis", "authen : " + au.getAccountNumber());
             mHelper.addAcc(anAcc);
+            mHelper.addAuthen(au);
             Toast.makeText(this, "Your account was created", Toast.LENGTH_SHORT).show();
             finish();
         }

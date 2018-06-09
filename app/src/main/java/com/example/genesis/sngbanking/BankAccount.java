@@ -8,8 +8,6 @@ public class BankAccount implements Serializable {
 
     private String fName;
     private String lName;
-    private String email;
-    private String password;
     private long accountNumber;
     private double balance;
 
@@ -17,23 +15,17 @@ public class BankAccount implements Serializable {
     private static long lastAccountNumber = 4823521350L;
 
     public BankAccount(String fName, String lName,
-                       String email, String password,
                        double intialBalance) {
         this.fName = fName;
         this.lName = lName;
-        this.email = email;
-        this.password = password;
         this.balance = intialBalance;
         this.accountNumber = ++lastAccountNumber;
     }
 
     public BankAccount(String fName, String lName,
-                       String email, String password,
                        String accountNumber, double intialBalance) {
         this.fName = fName;
         this.lName = lName;
-        this.email = email;
-        this.password = password;
         this.accountNumber = Long.parseLong(accountNumber);
         this.balance = intialBalance;
 
@@ -70,15 +62,6 @@ public class BankAccount implements Serializable {
         destAcc.deposit(amount);
 
         return true;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPassword() {
-        return password;
-
     }
 
     public String getFullName() {
